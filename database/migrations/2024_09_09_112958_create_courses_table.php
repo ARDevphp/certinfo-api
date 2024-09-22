@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('course_info');
+            $table->date('start_course');
+            $table->string('course_duration');
             $table->timestamps();
         });
     }

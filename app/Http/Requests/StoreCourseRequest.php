@@ -16,7 +16,9 @@ class StoreCourseRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'course_info' => 'required|string'
+            'course_info' => 'required|string',
+            'start_course' => 'required|date',
+            'course_duration' => 'required|string'
         ];
     }
 }

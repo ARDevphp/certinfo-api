@@ -10,14 +10,17 @@ class CourseController extends Controller
 {
     public function index()
     {
-        return "dsds";
+        return Course::all();
     }
 
     public function store(StoreCourseRequest $request)
     {
+
         Course::create([
             'name' => $request->name,
-            'course_info' => $request->course_info
+            'course_info' => $request->course_info,
+            'start_course' => $request->start_course,
+            'course_duration' => $request->course_duration,
         ]);
 
         return "muafaqiyatli";
