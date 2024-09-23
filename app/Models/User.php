@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class User extends Authenticatable
@@ -14,7 +15,7 @@ class User extends Authenticatable
     use HasApiTokens,
         HasFactory,
         Notifiable,
-
+        HasRoles,
         SoftDeletes;
 
 
@@ -36,19 +37,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-
-
-
-
-
-
-    public function hasFavorite($favorite_id): bool
-    {
-        return $this->favorites()->where('product_id', $favorite_id)->exists();
-    }
-
-
-
-
 }

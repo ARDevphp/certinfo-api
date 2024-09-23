@@ -10,10 +10,11 @@ return new class extends Migration
     {
         Schema::create('person', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('firstname');
             $table->string('lastname');
             $table->date('birthday');
-            $table->foreignId('image_id');
+            $table->text('image_id')->nullable();
             $table->timestamps();
         });
     }
