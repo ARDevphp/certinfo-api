@@ -9,10 +9,10 @@ class PersonFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->randomAscii,
+            'user_id' => rand(1,200),
             'firstname' => fake()->name,
             'lastname' => fake()->name,
-            'birthday' => fake()->date
+            'birthday' => '2024-09-24'
         ];
     }
 }

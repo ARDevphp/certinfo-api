@@ -13,6 +13,12 @@ class PersonSeeder extends Seeder
      */
     public function run(): void
     {
-        Person::factory()->count(200)->create();
+//        Person::create([
+//            'user_id' => 1,
+//            'firstname' => 'asasa',
+//            'lastname' => 'dsdd',
+//            'birthday' => '2024-09-22'
+//        ]);
+       Person::factory()->count(200)->create();
     }
 }
