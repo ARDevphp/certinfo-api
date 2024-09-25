@@ -13,8 +13,8 @@ class Course extends Model
 
     protected $fillable = ['name', 'course_info', 'start_course', 'course_duration'];
 
-    public function persons(): BelongsToMany
+    public function students(): BelongsToMany
     {
-        return $this->belongsToMany(Person::class);
+        return $this->belongsToMany(Person::class, 'course_person', 'course_id', 'person_id');
     }
 }

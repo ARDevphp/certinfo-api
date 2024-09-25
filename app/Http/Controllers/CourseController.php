@@ -5,12 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        return Course::all();
+        $courses = Course::withCount('students')->get(); // o'quvchilar sonini olish
+
+        $data = $courses->map(function ($course) {
+            return [
+                'course_id' => $course->id,
+                'course_name' => $course->name,
+                'student_count' => $course->students()->count(), // students_count avtomatik tarzda hisoblanadi
+            ];
+        });
+
+        return response()->json($data);
     }
 
     public function store(StoreCourseRequest $request)
