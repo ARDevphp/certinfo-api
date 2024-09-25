@@ -17,7 +17,8 @@ class CoursePersonFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'person_id' => rand(1,11),
+            'course_id' => rand(1,200),
         ];
     }
 }
