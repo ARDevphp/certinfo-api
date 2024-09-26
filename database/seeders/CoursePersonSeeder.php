@@ -13,10 +13,6 @@ class CoursePersonSeeder extends Seeder
      */
     public function run(): void
     {
-        //CoursePerson::factory()->count(200)->create();
-        CoursePerson::create([
-            'person_id' => rand(1,200),
-            'course_id' => rand(1,11),
-        ]);
+        CoursePerson::factory()->count(200)->create();
     }
 }

@@ -5,19 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Models\Person;
 use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {
     public function index(): JsonResponse
     {
-        $courses = Course::withCount('students')->get(); // o'quvchilar sonini olish
+        $courses = Course::withCount('people')->get(); // o'quvchilar sonini olish
 
         $data = $courses->map(function ($course) {
             return [
-                'course_id' => $course->id,
-                'course_name' => $course->name,
-                'student_count' => $course->students()->count(), // students_count avtomatik tarzda hisoblanadi
+                'id' => $course->id,
+                'name' => $course->name,
+                'course_info' => $course->course_info,
+                'start_course' => $course->start_course,
+                'course_duration' => $course->course_duration,
+                'student_count' => $course->people()->count()
             ];
         });
 
@@ -42,7 +46,10 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        return response()->json([
+            'course' => $course,
+            'count_user' => $course->people()->count()
+        ]);
     }
 
     /**

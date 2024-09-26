@@ -11,7 +11,7 @@ class Person extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'firstname', 'lastname', 'lastname'];
+    protected $fillable = ['user_id', 'firstname', 'lastname'];
 
     public function user(): BelongsTo
     {
