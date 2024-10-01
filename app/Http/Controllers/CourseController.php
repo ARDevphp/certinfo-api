@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
@@ -20,8 +21,7 @@ class CourseController extends Controller
                 'name' => $course->name,
                 'course_info' => $course->course_info,
                 'start_course' => $course->start_course,
-                'course_duration' => $course->course_duration,
-                'student_count' => $course->people()->count()
+                'course_duration' => $course->course_duration
             ];
         });
 
@@ -37,7 +37,6 @@ class CourseController extends Controller
             'start_course' => $request->start_course,
             'course_duration' => $request->course_duration,
         ]);
-
         return "muafaqiyatli";
     }
 
@@ -46,10 +45,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return response()->json([
-            'course' => $course,
-            'count_user' => $course->people()->count()
-        ]);
+        return $this->response(new CourseResource($course));
     }
 
     /**
