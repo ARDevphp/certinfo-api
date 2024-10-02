@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             UserSeeder::class,
             PersonSeeder::class,
+            MediaObjectSeeder::class,
             CourseSeeder::class,
             CoursePersonSeeder::class
         ]);

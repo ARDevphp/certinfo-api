@@ -6,7 +6,6 @@ use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use App\Models\Person;
 use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
@@ -20,8 +19,10 @@ class CourseController extends Controller
                 'id' => $course->id,
                 'name' => $course->name,
                 'course_info' => $course->course_info,
+                'image_id' => $course->image_id,
                 'start_course' => $course->start_course,
-                'course_duration' => $course->course_duration
+                'course_duration' => $course->course_duration,
+                'student_count' => $course->people_count,
             ];
         });
 
@@ -35,8 +36,11 @@ class CourseController extends Controller
             'name' => $request->name,
             'course_info' => $request->course_info,
             'start_course' => $request->start_course,
+            'teacher_id' => $request->teacher_id,
+            'image_id' => $request->image_id ? $request->image_id : 1,
             'course_duration' => $request->course_duration,
         ]);
+
         return "muafaqiyatli";
     }
 
