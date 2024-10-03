@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\MediaObject;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PersonResource extends JsonResource
+class TeacherResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +16,11 @@ class PersonResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'birthday' => $this->birthday,
+            'people_id' => 1,
+            'phone' => $this->phone,
+            'information' => $this->information,
+            'address' => $this->address,
+            'salary' => $this->salary
         ];
     }
 }
