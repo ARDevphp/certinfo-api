@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MediaObject;
-use App\Http\Requests\StoreMediaObjectRequest;
-use App\Http\Requests\UpdateMediaObjectRequest;
+use App\Models\Photo;
+use App\Http\Requests\StorePhotoRequest;
+use App\Http\Requests\UpdatePhotoRequest;
 
-class MediaObjectController extends Controller
+class PhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class MediaObjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMediaObjectRequest $request)
+    public function store(StorePhotoRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class MediaObjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MediaObject $mediaObject)
+    public function show(Photo $photo)
     {
         //
     }
@@ -43,7 +43,7 @@ class MediaObjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MediaObject $mediaObject)
+    public function edit(Photo $photo)
     {
         //
     }
@@ -51,7 +51,7 @@ class MediaObjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMediaObjectRequest $request, MediaObject $mediaObject)
+    public function update(UpdatePhotoRequest $request, Photo $photo)
     {
         //
     }
@@ -59,7 +59,7 @@ class MediaObjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MediaObject $mediaObject)
+    public function destroy(Photo $photo)
     {
         //
     }

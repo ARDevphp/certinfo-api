@@ -22,7 +22,6 @@ class PersonResource extends JsonResource
             'lastname' => $this->lastname,
             'birthday' => $this->birthday,
             'image_id' => MediaObjectResource::collection($this->image_id),
-
         ];
     }
 }

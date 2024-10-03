@@ -14,13 +14,14 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->date('birthday');
-            $table->text('image_id')->nullable();
+
+
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('person');
+        Schema::dropIfExists('people');
     }
 };

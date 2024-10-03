@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('course_info');
-            $table->foreignId('teacher_id')->constrained('people')->cascadeOnDelete();
-            $table->foreignId('image_id')->constrained('media_objects')->onDelete('cascade');
+            $table->foreignId('teacher_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('photo_id')->constrained('photos');
             $table->date('start_course');
             $table->string('course_duration');
             $table->timestamps();
