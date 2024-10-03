@@ -16,6 +16,7 @@ class TeacherSeeder extends Seeder
         Teacher::create([
             'people_id' => 3,
             'phone' => '+380612345678',
+            'photo_id' => 1,
             'information' => 'Php dasturchi 6 yildan dasturlash bilan shugulanadu',
             'address' => 'Andijon viloyati 53a uy',
             'salary' => 8000000
@@ -24,6 +25,7 @@ class TeacherSeeder extends Seeder
         Teacher::create([
             'people_id' => 4,
             'phone' => '+380612345623',
+            'photo_id' => 1,
             'information' => 'Java dasturchi 6 yildan dasturlash bilan shugulanadu',
             'address' => 'Tashkent viloyati 53a uy',
             'salary' => 7000000
@@ -32,6 +34,7 @@ class TeacherSeeder extends Seeder
         Teacher::create([
             'people_id' => 5,
             'phone' => '+380612345675',
+            'photo_id' => 1,
             'information' => 'Android dasturchi 6 yildan dasturlash bilan shugulanadu',
             'address' => 'Namangan viloyati 53a uy',
             'salary' => 5000000

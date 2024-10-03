@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('student_name');
             $table->string('student_family');
             $table->string('student_email');
-            $table->foreignId('course_id');
+            $table->foreignId('course_id')->constrained()->cascadeOnDelete();
             $table->text('practice');
             $table->text('certificate_protection');
             $table->date('finish_course');
