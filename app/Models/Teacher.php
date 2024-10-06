@@ -30,7 +30,7 @@ class Teacher extends Model
 
     public function person(): BelongsTo
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Person::class, 'people_id');
     }
     public function photo(): MorphMany
     {

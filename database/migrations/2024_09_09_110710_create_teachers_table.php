@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->integer('salary')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

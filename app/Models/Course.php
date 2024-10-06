@@ -28,7 +28,7 @@ class Course extends Model
     }
     public function people(): BelongsToMany
     {
-        return $this->belongsToMany(Person::class);
+        return $this->belongsToMany(Person::class, 'course_people', 'course_id', 'people_id');
     }
 
     public function certificates(): HasMany

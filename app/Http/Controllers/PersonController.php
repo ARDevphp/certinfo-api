@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PersonResource;
+use App\Http\Resources\TeacherResource;
 use App\Models\Person;
 use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
+use App\Models\Teacher;
 
 class PersonController extends Controller
 {
@@ -13,52 +16,26 @@ class PersonController extends Controller
      */
     public function index()
     {
-        //
+        return $this->response(PersonResource::collection(Person::all()));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StorePersonRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Person $person)
+    public function show($id)
     {
-        //
+        return $this->response(new PersonResource(Person::where('id', $id)->first()));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Person $person)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdatePersonRequest $request, Person $person)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Person $person)
     {
         //

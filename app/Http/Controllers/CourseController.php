@@ -3,34 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CourseResource;
-use App\Http\Resources\TeacherResource;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use Database\Seeders\TeacherSeeder;
 use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {
-    public function index(): JsonResponse
+    public function index()
     {
-        $courses = Course::all(); // o'quvchilar sonini olish
-
-        $data = $courses->map(function ($course) {
-            return [
-                'id' => $course->id,
-                'name' => $course->name,
-                'course_info' => $course->course_info,
-                'photo_id' => $course->photo_id,
-                'teacher_id' => TeacherResource::collection($course->teacher_id),
-                'start_course' => $course->start_course,
-                'course_duration' => $course->course_duration,
-                'student_count' => $course->people_count,
-            ];
-        });
-
-        return response()->json($data);
+        return $this->response(CourseResource::collection(Course::all()));
     }
+
 
     public function store(StoreCourseRequest $request)
     {

@@ -13,7 +13,7 @@ class Person extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'firstname', 'lastname', 'birthday'];
+    protected $fillable = ['id', 'user_id', 'firstname', 'lastname', 'birthday'];
 
     public function user(): BelongsTo
     {

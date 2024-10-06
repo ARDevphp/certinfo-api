@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TeacherResource;
 use App\Models\Teacher;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
@@ -13,12 +14,9 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        return $this->response(TeacherResource::collection(Teacher::all()));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //

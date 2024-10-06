@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('start_course');
             $table->string('course_duration');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
     public function down(): void
