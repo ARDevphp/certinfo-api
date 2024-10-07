@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,6 +17,7 @@ class PersonResource extends JsonResource
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
             'birthday' => $this->birthday,
+            'photo_id' => PhotoResource::collection(Photo::whereId($this->photo_id)->get()),
         ];
     }
 }

@@ -12,7 +12,8 @@ class PersonFactory extends Factory
             'user_id' => rand(1,200),
             'firstname' => fake()->name,
             'lastname' => fake()->name,
-            'birthday' => '2024-09-24'
+            'birthday' => '2024-09-24',
+            'photo_id' => 2
         ];
     }
 }

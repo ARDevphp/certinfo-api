@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\TeacherController;
@@ -20,5 +21,6 @@ Route::middleware('auth:sanctum')->group(function () {
         'courses' => CourseController::class,
         'students' => PersonController::class,
         'teachers' => TeacherController::class,
+        'certifications' => CertificateController::class,
     ]);
 });

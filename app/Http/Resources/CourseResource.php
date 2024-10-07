@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Course;
+use App\Models\Photo;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,6 +18,7 @@ class CourseResource extends JsonResource
             'course_info' => $this->course_info,
             'start_course' => $this->start_course,
             'teacher_id' => TeacherResource::collection(Teacher::whereId($this->teacher_id)->get()),
+            'phone_id' => PhotoResource::collection(Photo::whereId($this->phone_id)->get()),
             'student_count' => $this->people()->count()
         ];
     }

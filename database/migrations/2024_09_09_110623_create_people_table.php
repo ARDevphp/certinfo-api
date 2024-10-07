@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('photo_id')->constrained('photos');
             $table->string('firstname');
             $table->string('lastname');
             $table->date('birthday');

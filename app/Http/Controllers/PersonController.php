@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PersonResource;
-use App\Http\Resources\TeacherResource;
 use App\Models\Person;
 use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
-use App\Models\Teacher;
 
 class PersonController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return $this->response(PersonResource::collection(Person::all()));

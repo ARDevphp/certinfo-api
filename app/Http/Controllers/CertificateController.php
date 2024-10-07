@@ -2,63 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CertificateResource;
 use App\Models\Certificate;
 use App\Http\Requests\StoreCertificateRequest;
 use App\Http\Requests\UpdateCertificateRequest;
 
 class CertificateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return $this->response(CertificateResource::collection(Certificate::all()));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCertificateRequest $request)
     {
-        //
+        Certificate::create([
+            'student_name' => $request->student_name,
+            'student_family' => $request->student_family,
+            'student_email' => $request->student_email,
+            'course_id' => $request->course_id,
+            'practice' => $request->practice,
+            'certificate_protection' => $request->certificate_protection,
+            'finish_course' => $request->finish_course
+        ]);
+
+        return $this->response('qoshildi');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Certificate $certificate)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Certificate $certificate)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateCertificateRequest $request, Certificate $certificate)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Certificate $certificate)
     {
         //

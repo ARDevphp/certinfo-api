@@ -31,33 +31,16 @@ class CourseController extends Controller
         return "muafaqiyatli";
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Course $course)
     {
         return $this->response(new CourseResource($course));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Course $course)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateCourseRequest $request, Course $course)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Course $course)
     {
         //
