@@ -10,39 +10,40 @@ use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        return $this->response(CourseResource::collection(Course::all()));
+        return response()->json(CourseResource::collection(Course::all()), 200);
     }
 
-
-    public function store(StoreCourseRequest $request)
+    public function store(StoreCourseRequest $request): JsonResponse
     {
+        $course = Course::create($request->validated());
 
-        Course::create([
-            'name' => $request->name,
-            'course_info' => $request->course_info,
-            'start_course' => $request->start_course,
-            'teacher_id' => $request->teacher_id,
-            'image_id' => $request->image_id ? $request->image_id : 1,
-            'course_duration' => $request->course_duration,
-        ]);
-
-        return "muafaqiyatli";
+        return response()->json([
+            'message' => 'Kurs muvaffaqiyatli yaratildi!',
+            'course' => new CourseResource($course)
+        ], 201);
     }
 
-    public function show(Course $course)
+    public function show(Course $course): JsonResponse
     {
-        return $this->response(new CourseResource($course));
+        return response()->json(new CourseResource($course), 200);
     }
 
-    public function update(UpdateCourseRequest $request, Course $course)
+    public function update(UpdateCourseRequest $request, Course $course): JsonResponse
     {
-        //
+        $course->update($request->validated());
+
+        return response()->json([
+            'message' => 'Kurs muvaffaqiyatli yangilandi!',
+            'course' => new CourseResource($course)
+        ], 200);
     }
 
-    public function destroy(Course $course)
+    public function destroy(Course $course): JsonResponse
     {
-        //
+        $course->delete();
+
+        return response()->json(['message' => 'Kurs muvaffaqiyatli o\'chirildi!'], 200);
     }
 }

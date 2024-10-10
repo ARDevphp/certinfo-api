@@ -2,45 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CertificateResource;
 use App\Models\Certificate;
 use App\Http\Requests\StoreCertificateRequest;
 use App\Http\Requests\UpdateCertificateRequest;
+use App\Http\Resources\CertificateResource;
+use Illuminate\Http\JsonResponse;
 
 class CertificateController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         return $this->response(CertificateResource::collection(Certificate::all()));
     }
 
-    public function store(StoreCertificateRequest $request)
+    public function store(StoreCertificateRequest $request): JsonResponse
     {
-        Certificate::create([
-            'student_name' => $request->student_name,
-            'student_family' => $request->student_family,
-            'student_email' => $request->student_email,
-            'course_id' => $request->course_id,
-            'practice' => $request->practice,
-            'certificate_protection' => $request->certificate_protection,
-            'finish_course' => $request->finish_course
-        ]);
+        Certificate::create($request->validated());
 
-        return $this->response('qoshildi');
+        return $this->response(['message' => 'Certificate muvaffaqiyatli qo\'shildi!']);
     }
 
-    public function show(Certificate $certificate)
+    public function show(Certificate $certificate): JsonResponse
     {
-        //
+        return $this->response(new CertificateResource($certificate));
     }
 
-    public function update(UpdateCertificateRequest $request, Certificate $certificate)
+    public function update(UpdateCertificateRequest $request, Certificate $certificate): JsonResponse
     {
-        //
+        $certificate->update($request->validated());
+
+        return $this->response(['message' => 'Certificate muvaffaqiyatli yangilandi!']);
     }
 
-    public function destroy(Certificate $certificate)
+    public function destroy(Certificate $certificate): JsonResponse
     {
-        //
+        $certificate->delete();
+
+        return $this->response(['message' => 'Certificate muvaffaqiyatli o\'chirildi!']);
     }
 }

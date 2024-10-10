@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\StoreAuthRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -26,27 +27,60 @@ class AuthController extends Controller
         return $this->response([
             'token' => $user->createToken($request->email)->plainTextToken
         ]);
-
-        //return  success('token' => $user->createToken($request->email)->plainTextToken,);
     }
 
     public function logout(Request $request)
     {
+        $request->user()->tokens()->delete();
 
+        return $this->response(['message' => 'Successfully logged out']);
     }
 
-    public function register(Request $request)
+    public function register(StoreUserRequest $request)
     {
+        $validatedData = $request->validated();
 
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+
+        return $this->response([
+            'token' => $user->createToken($user->email)->plainTextToken,
+            'user' => $user
+        ]);
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(ChangePasswordRequest $request)
     {
+        $validatedData = $request->validated();
 
+        $user = $request->user();
+
+        if (!Hash::check($validatedData['old_password'], $user->password)) {
+            return $this->response(['message' => 'Old password is incorrect'], 400);
+        }
+
+        $user->update([
+            'password' => Hash::make($validatedData['password'])
+        ]);
+
+        return $this->response(['message' => 'Password changed successfully']);
     }
+
 
     public function user(Request $request): JsonResponse
     {
         return $this->response(new UserResource($request->user()));
     }
+
+    public function deleteUser(Request $request)
+    {
+        $user = $request->user();
+        $user->delete();
+
+        return $this->response(['message' => 'User deleted successfully']);
+    }
+
 }
