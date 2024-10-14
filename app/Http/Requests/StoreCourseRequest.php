@@ -19,7 +19,7 @@ class StoreCourseRequest extends FormRequest
             'course_info' => 'required|string',
             'start_course' => 'required|date',
             'teacher_id' => 'required|integer|exists:teachers,id',
-            'image_id' => 'nullable|integer|exists:images,id',
+            'photo_id' => 'nullable|integer',
             'course_duration' => 'required|string',
         ];
     }

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\ValidationException;
 use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\StoreAuthRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StoreAuthRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -41,7 +41,6 @@ class AuthController extends Controller
         $validatedData = $request->validated();
 
         $user = User::create([
-            'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
@@ -82,5 +81,4 @@ class AuthController extends Controller
 
         return $this->response(['message' => 'User deleted successfully']);
     }
-
 }
