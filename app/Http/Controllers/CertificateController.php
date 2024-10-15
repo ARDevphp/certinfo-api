@@ -22,21 +22,22 @@ class CertificateController extends Controller
         return $this->response(['message' => 'Certificate muvaffaqiyatli qo\'shildi!']);
     }
 
-    public function show(Certificate $certificate): JsonResponse
+    public function show($certificate): JsonResponse
     {
-        return $this->response(new CertificateResource($certificate));
+        return $this->response(new CertificateResource(Certificate::find($certificate)));
     }
 
-    public function update(UpdateCertificateRequest $request, Certificate $certificate): JsonResponse
+    public function update(UpdateCertificateRequest $request, $id): JsonResponse
     {
+        $certificate = Certificate::find($id);
         $certificate->update($request->validated());
 
         return $this->response(['message' => 'Certificate muvaffaqiyatli yangilandi!']);
     }
 
-    public function destroy(Certificate $certificate): JsonResponse
+    public function destroy($certificate): JsonResponse
     {
-        $certificate->delete();
+        Certificate::find($certificate)->delete();
 
         return $this->response(['message' => 'Certificate muvaffaqiyatli o\'chirildi!']);
     }

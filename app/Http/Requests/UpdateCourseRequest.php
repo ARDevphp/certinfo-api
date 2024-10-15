@@ -14,12 +14,12 @@ class UpdateCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|string|max:255',
+            'name' => 'sometimes|string',
             'course_info' => 'sometimes|string',
             'start_course' => 'sometimes|date',
             'teacher_id' => 'sometimes|integer|exists:teachers,id',
-            'image_id' => 'nullable|integer|exists:images,id',
-            'course_duration' => 'sometimes|integer|min:1',
+            'image_id' => 'nullable|integer',
+            'course_duration' => 'sometimes|string',
         ];
     }
 }
