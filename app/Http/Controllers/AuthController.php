@@ -74,7 +74,7 @@ class AuthController extends Controller
         return $this->response(new UserResource($request->user()));
     }
 
-    public function deleteUser(Request $request)
+    public function deleteUser(Request $request): JsonResponse
     {
         $user = $request->user();
         $user->delete();
