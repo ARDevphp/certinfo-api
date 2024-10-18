@@ -7,6 +7,7 @@ use App\Models\Certificate;
 use App\Http\Requests\StoreCertificateRequest;
 use App\Http\Requests\UpdateCertificateRequest;
 use App\Http\Resources\CertificateResource;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
@@ -23,11 +24,9 @@ class CertificateController extends Controller
     {
         $certificate = Certificate::create($request->validated());
 
-        $qrCode = QrCode::format('png')->size(200)->generate(route('certificates.show', $certificate->id));
-        $pdf = Pdf::loadView('certificates.pdf', ['certificate' => $certificate, 'qrCode' => $qrCode])
-            ->setPaper('A4', 'portrait');
+        if (!User::where())
 
-        Mail::to($certificate->student_email)->send(new CertificateMail(['certificate' => $certificate, 'pdf' => $pdf->output()]));
+        Mail::to($certificate->student_email)->send(new CertificateMail($certificate));
 
         return response()->json(['message' => 'Certificate created and email sent!'], 201);
     }

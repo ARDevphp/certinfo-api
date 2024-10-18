@@ -18,7 +18,7 @@ class StoreCertificateRequest extends FormRequest
         return [
             'student_name' => 'required|string|max:255',
             'student_family' => 'required|string|max:255',
-            'student_email' => 'required|email|max:255',
+            'student_email' => 'required|email|users.email',
             'course_id' => 'required|integer|exists:courses,id',
             'practice' => 'required|string',
             'certificate_protection' => 'required|string',
