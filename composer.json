@@ -10,8 +10,10 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "simplesoftwareio/simple-qrcode": "4.2",
-        "spatie/laravel-permission": "^6.9"
+        "rcrowe/twigbridge": "^0.14.3",
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "spatie/laravel-permission": "^6.9",
+        "twig/twig": "^3.14"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

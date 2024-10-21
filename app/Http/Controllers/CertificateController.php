@@ -22,11 +22,20 @@ class CertificateController extends Controller
 
     public function store(StoreCertificateRequest $request)
     {
+        if (!User::where('email', $request->student_email)->exists()) {
+            return $this->response(['Bunday student topilmadi']);
+        }
+
         $certificate = Certificate::create($request->validated());
+        $qrCode = QrCode::size(200)->generate(route('certificates.show', $certificate->id));
 
-        if (!User::where())
+        $pdf = Pdf::loadView('certificates.show', [
+            'certificate' => $certificate,
+            'qrCode' => $qrCode
+        ])->setPaper('a4', 'portrait');
 
-        Mail::to($certificate->student_email)->send(new CertificateMail($certificate));
+
+        Mail::to($certificate->student_email)->send(new CertificateMail($certificate, $pdf));
 
         return response()->json(['message' => 'Certificate created and email sent!'], 201);
     }
