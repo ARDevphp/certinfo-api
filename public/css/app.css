@@ -1,0 +1,114 @@
+@font-face {
+    font-family: 'AmstelvarAlpha';
+    src: url('../fonts/AmstelvarAlpha-VF.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/SFPRODISPLAYBOLD.OTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.a {
+    color: darkturquoise;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.certificate {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.qr-code, .image_logo, .image_logo_name, .signature {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+}
+
+.qr-code {
+    top: 10px;
+    right: 10px;
+    margin-top: 968px;
+    margin-right: 538px;
+}
+
+.image_logo {
+    top: 10px;
+    right: 10px;
+    margin-top: 970px;
+    margin-right: 349px;
+}
+
+.image_logo_name {
+    width: 100px;
+    height: 17px;
+    top: 10px;
+    right: 10px;
+    margin-top: 1075px;
+    margin-right: 360px;
+}
+
+.signature {
+    top: 100px;
+    right: 25px;
+    width: 300px;
+    height: 250px;
+    margin-top: 970px;
+    margin-right: 300px;
+}
+
+.text {
+    position: absolute;
+    color: black;
+    font-size: 24px;
+}
+
+.year {
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 30px;
+    letter-spacing: 0.15em;
+    top: 120px;
+    left: 472px;
+    color: #F4D86A;
+}
+
+.name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.11em;
+    color: #D7AC4A;
+    text-align: center;
+    margin-top: 620px;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.course-name {
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    font-family: 'AmstelvarAlpha', serif;
+    font-size: 28px;
+    line-height: 1;
+    text-align: center;
+    width: 100%;
+    margin-top: 820px;
+}

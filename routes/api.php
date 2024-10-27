@@ -20,6 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
         'courses' => CourseController::class,
         'students' => PersonController::class,
         'teachers' => TeacherController::class,
-        'certifications' => CertificateController::class,
+        'certificates' => CertificateController::class,
     ]);
 });

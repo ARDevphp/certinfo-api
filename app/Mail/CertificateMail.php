@@ -12,20 +12,18 @@ class CertificateMail extends Mailable
     use Queueable, SerializesModels;
 
     public $certificate;
-    public $pdf;
 
-    public function __construct(Certificate $certificate, $pdf)
+
+    public function __construct(Certificate $certificate)
     {
         $this->certificate = $certificate;
-        $this->pdf = $pdf;
+
     }
 
     public function build()
     {
         return $this->view('emails.certificate')
             ->subject('Sizning Sertifikatingiz')
-            ->attachData($this->pdf->output(), 'certificate.pdf', [
-                'mime' => 'application/pdf',
-            ]);
+            ;
     }
 }
