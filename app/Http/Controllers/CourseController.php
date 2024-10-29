@@ -10,9 +10,9 @@ use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        return view('emails.edd');
+        return response()->json(CourseResource::collection(Course::all()), 200);
     }
 
     public function store(StoreCourseRequest $request): JsonResponse
