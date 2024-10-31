@@ -35,7 +35,7 @@ class CertificateController extends Controller
 
     public function show($certificate)
     {
-        return view('certificates.show', compact('certificate'));
+        return $this->response(new CertificateResource(Certificate::where('id', $certificate)->firstOrFail()));
     }
 
     public function update(UpdateCertificateRequest $request, $id): JsonResponse
