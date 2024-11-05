@@ -16,6 +16,7 @@ class Certificate extends Model
         'student_family',
         'student_email',
         'course_id',
+        'file_path',
         'practice',
         'certificate_protection',
         'finish_course',

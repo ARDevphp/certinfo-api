@@ -20,6 +20,7 @@ class StoreCertificateRequest extends FormRequest
             'student_family' => 'required|string|max:255',
             'student_email' => 'required|email|max:255',
             'course_id' => 'required|integer|exists:courses,id',
+            'file_path' => 'required|mimes:pdf|max:2048',
             'practice' => 'required|string',
             'certificate_protection' => 'required|string',
             'finish_course' => 'required|date',
