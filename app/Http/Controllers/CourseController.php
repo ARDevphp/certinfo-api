@@ -15,14 +15,15 @@ class CourseController extends Controller
         return response()->json(CourseResource::collection(Course::all()), 200);
     }
 
-    public function store(StoreCourseRequest $request): JsonResponse
+    public function store(StoreCourseRequest $request)
     {
-        $course = Course::create($request->validated());
-
-        return response()->json([
-            'message' => 'Kurs muvaffaqiyatli yaratildi!',
-            'course' => new CourseResource($course)
-        ], 201);
+        return 'salom';
+//        $course = Course::create($request->validated());
+//
+//        return response()->json([
+//            'message' => 'Kurs muvaffaqiyatli yaratildi!',
+//            'course' => new CourseResource($course)
+//        ], 201);
     }
 
     public function show(Course $course): JsonResponse
