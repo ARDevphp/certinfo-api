@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\CertificateMail;
-use App\Models\Certificate;
-use App\Http\Requests\StoreCertificateRequest;
-use App\Http\Requests\UpdateCertificateRequest;
-use App\Http\Resources\CertificateResource;
 use App\Models\User;
-use App\Services\CertificateService;
-use App\Services\CertificateServiceInterface;
+use App\Models\Certificate;
+use App\Mail\CertificateMail;
+use App\Notifications\CertificateCreatedNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Services\CertificateService;
+use Illuminate\Http\Request;
+use App\Http\Resources\CertificateResource;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\StoreCertificateRequest;
+use App\Http\Requests\UpdateCertificateRequest;
 
 class CertificateController extends Controller
 {
@@ -30,29 +30,27 @@ class CertificateController extends Controller
 
     public function store(Request $request)
     {
-        return  $request;
-        if (!User::where('email', $request->student_email)->exists()) {
-            return $this->response(['Bunday student topilmadi']);
-        }
+        $qrcodeSvgPath = $this->certificateService->generateQrCode($request->fullUrl() . 1);
 
-        $filePath = $this->certificateService->generateCertificate(
-            $request->input('student_name'),
-            $request->input('student_family'),
-            $request->input('course_id'),
-            $request->input('finish_course'),
-        );
+        $combinedSvgPath = $this->certificateService
+            ->mergeQrWithTemplate($qrcodeSvgPath, $request->student_name, $request->student_family);
 
-        $certificate = Certificate::create([
-            'student_name' => $request->input('student_name'),
-            'student_family' => $request->input('student_family'),
-            'student_email' => $request->input('student_email'),
-            'course_id' => $request->input('course_id'),
-            'finish_course' => $request->input('finish_course'),
-            'file_path' => $request->filePath,
+        $post = Certificate::create([
+            'student_name' => $request->student_name,
+            'student_family' => $request->student_family,
+            'student_email' => $request->student_email,
+            'course_id' => $request->course_id,
+            'file_path' => $combinedSvgPath,
+            'practice' => $request->practice,
+            'certificate_protection' => $request->certificate_protection,
+            'finish_course' => $request->finish_course,
+            'created_at' => now(),
         ]);
 
-
-        Mail::to($certificate->student_email)->send(new CertificateMail($certificate));
+//        Notification::send(auth()->user(), new CertificateCreatedNotification($post));
+//
+//        $certificate = Certificate::findOrFail($certificateId);
+//        Mail::to($request->student_email)->send(new CertificateMail($certificate));
 
         return response()->json(['message' => 'Certificate created and email sent!'], 201);
     }

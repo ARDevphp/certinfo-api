@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'email' => "aziz@gmail.com",
             'password' => Hash::make('123456')
         ]);
-        $user->assignRole('admin');
+        $user->assignRole('teacher');
 
         $user = User::create([
             'email' => "mirzo@gmail.com",
@@ -41,7 +41,13 @@ class UserSeeder extends Seeder
             'email' => "dilo@gmail.com",
             'password' => Hash::make('123456')
         ]);
-        $user->assignRole('teacher');
+        $user->assignRole('admin');
+
+        $user = User::create([
+            'email' => "abmirzo@gmail.com",
+            'password' => Hash::make('123456')
+        ]);
+        $user->assignRole('admin');
 
         $users = User::factory()->count(200)->create();
 

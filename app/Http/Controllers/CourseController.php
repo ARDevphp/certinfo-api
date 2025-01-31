@@ -17,13 +17,12 @@ class CourseController extends Controller
 
     public function store(StoreCourseRequest $request)
     {
-        return 'salom';
-//        $course = Course::create($request->validated());
-//
-//        return response()->json([
-//            'message' => 'Kurs muvaffaqiyatli yaratildi!',
-//            'course' => new CourseResource($course)
-//        ], 201);
+        $course = Course::create($request->validated());
+
+        return response()->json([
+            'message' => 'Kurs muvaffaqiyatli yaratildi!',
+            'course' => new CourseResource($course)
+        ], 201);
     }
 
     public function show(Course $course): JsonResponse

@@ -13,17 +13,14 @@ class CertificateMail extends Mailable
 
     public $certificate;
 
-
     public function __construct(Certificate $certificate)
     {
         $this->certificate = $certificate;
-
     }
 
     public function build()
     {
         return $this->view('emails.certificate')
-            ->subject('Sizning Sertifikatingiz')
-            ;
+            ->with(['certificate' => $this->certificate]);
     }
 }
