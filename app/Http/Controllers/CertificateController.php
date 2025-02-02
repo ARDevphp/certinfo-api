@@ -33,7 +33,7 @@ class CertificateController extends Controller
         $qrcodeSvgPath = $this->certificateService->generateQrCode($request->fullUrl() . 1);
 
         $combinedSvgPath = $this->certificateService
-            ->mergeQrWithTemplate($qrcodeSvgPath, $request->student_name, $request->student_family);
+            ->mergeQrWithTemplate($qrcodeSvgPath, $request->student_name, $request->student_family, $request->finish_course);
 
         $post = Certificate::create([
             'student_name' => $request->student_name,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CoursePersonResource;
+use App\Models\Course;
 use App\Models\CoursePerson;
 use App\Http\Requests\StoreCoursePersonRequest;
 use App\Http\Requests\UpdateCoursePersonRequest;
@@ -29,9 +30,11 @@ class CoursePersonController extends Controller
         ], 201);
     }
 
-    public function show(CoursePerson $coursePerson)
+    public function show($id)
     {
-        return response()->json(new CoursePersonResource($coursePerson), 200);
+        $course = Course::with('people')->find($id);
+
+        return response()->json(new CoursePersonResource($course), 200);
     }
 
     public function update(UpdateCoursePersonRequest $request, CoursePerson $coursePerson)

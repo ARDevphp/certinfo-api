@@ -17,6 +17,7 @@ class CourseResource extends JsonResource
             'name' => $this->name,
             'course_info' => $this->course_info,
             'start_course' => $this->start_course,
+            'course_duration' => $this->course_duration,
             'teacher_id' => TeacherResource::collection(Teacher::whereId($this->teacher_id)->get()),
             'photo_id' => PhotoResource::collection(Photo::whereId($this->photo_id)->get()),
             'student_count' => $this->people()->count()

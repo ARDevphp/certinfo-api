@@ -25,7 +25,7 @@ class CertificateService
         return $qrSvgPath;
     }
 
-    public function mergeQrWithTemplate(string $qrPath, string $name, string $surname): string
+    public function mergeQrWithTemplate(string $qrPath, string $name, string $surname, string $finish_course): string
     {
         $templatePath = storage_path('app/public/photo/certificateTemplate.svg');
 
@@ -34,14 +34,18 @@ class CertificateService
 
         $imageTag = '<image x="258" y="551" width="88" height="88" href="data:image/svg+xml;base64,' .
             base64_encode($qrSvg) . '" />';
-        $nameTag = '<text x="30%" y="46%" font-size="27" fill="black" font-family="Arial">' .
+        $nameTag = '<text x="50%" y="46%" font-size="40" fill="#CCB800" font-family="Arial" text-anchor="middle" dominant-baseline="middle">' .
             htmlspecialchars($name . ' ' . $surname) . '</text>';
 
-        $combinedSvg = str_replace('</svg>', $imageTag . $nameTag . '</svg>', $mainSvg);
+        $date = '<text style="font-weight: 900; color: #FFD700; font-size: 20px;"
+                       x="274" y="85" font-family="Arial, sans-serif" fill="#FFDD33"
+                 >'. date('Y') . '</text>';
 
+        $combinedSvg = str_replace('</svg>', $imageTag . $nameTag . $date . '</svg>', $mainSvg);
+
+        unlink($qrPath);
         $combinedSvgPath = storage_path('app/public/' . $name . uniqid() . '.svg');
         file_put_contents($combinedSvgPath, $combinedSvg);
-//        $this->convertSvgToPngWithImagick($combinedSvgPath);
 
         return $combinedSvgPath;
     }

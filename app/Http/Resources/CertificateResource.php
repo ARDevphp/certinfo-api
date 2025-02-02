@@ -17,7 +17,7 @@ class CertificateResource extends JsonResource
             'student_email' => $this->student_email,
             'course_id' => Course::whereId($this->course_id)->get('name'),
             'practice' => $this->practice,
-            'file_path' => $this->file_path,
+            'file_path' => asset('storage/' . basename($this->file_path)),
             'certificate_protection' => $this->certificate_protection,
             'finish_course' => $this->finish_course
         ];

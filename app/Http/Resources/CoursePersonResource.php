@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -11,8 +12,9 @@ class CoursePersonResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'course_id' => $this->course_id,
-            'people_id' => $this->people_id
+            'people' => $this->people->map(function ($person) {
+                return PersonResource::make($person);
+            })
         ];
     }
 }
