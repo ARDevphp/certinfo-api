@@ -25,34 +25,38 @@ class CertificateController extends Controller
 
     public function index(): JsonResponse
     {
-        return $this->response(CertificateResource::collection(Certificate::all()));
+        $paginate = Certificate::paginate(11);
+
+        return response()->json([
+            'data' => CertificateResource::collection($paginate),
+            'pagination' => [
+                'currentPage' => $paginate->currentPage(),
+                'lastPage' => $paginate->lastPage(),
+                'perPage' => $paginate->perPage(),
+                'total' => $paginate->total(),
+            ]
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreCertificateRequest $request)
     {
         $qrcodeSvgPath = $this->certificateService->generateQrCode($request->fullUrl() . 1);
 
         $combinedSvgPath = $this->certificateService
             ->mergeQrWithTemplate($qrcodeSvgPath, $request->student_name, $request->student_family, $request->finish_course);
 
-        $post = Certificate::create([
-            'student_name' => $request->student_name,
-            'student_family' => $request->student_family,
-            'student_email' => $request->student_email,
-            'course_id' => $request->course_id,
-            'file_path' => $combinedSvgPath,
-            'practice' => $request->practice,
-            'certificate_protection' => $request->certificate_protection,
-            'finish_course' => $request->finish_course,
-            'created_at' => now(),
-        ]);
+        $certificateFile = array_merge($request->validated(), ['file_path' => $combinedSvgPath]);
+        $certificate = Certificate::create($certificateFile);
 
 //        Notification::send(auth()->user(), new CertificateCreatedNotification($post));
 //
-//        $certificate = Certificate::findOrFail($certificateId);
+//        $certificate = Certificate::findOrFail($post);
 //        Mail::to($request->student_email)->send(new CertificateMail($certificate));
 
-        return response()->json(['message' => 'Certificate created and email sent!'], 201);
+        return response()->json([
+            'message' => 'Certificate created and email sent!',
+            'data' => ['id' => $certificate->id],
+        ], 201);
     }
 
     public function show($certificate)

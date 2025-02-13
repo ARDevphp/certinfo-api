@@ -54,4 +54,3 @@ class CoursePersonController extends Controller
         return response()->json(['message' => 'Kurs shaxsi muvaffaqiyatli o\'chirildi!'], 200);
     }
 }
-

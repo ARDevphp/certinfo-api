@@ -18,7 +18,7 @@ class StoreCourseRequest extends FormRequest
             'name' => 'required|string|max:255',
             'course_info' => 'required|string',
             'start_course' => 'required|date',
-            'teacher_id' => 'required|integer|exists:teachers,id',
+            'teacher_id' => 'required',
             'photo_id' => 'nullable|integer',
             'course_duration' => 'required|string',
         ];

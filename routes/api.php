@@ -17,7 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::apiResources([
-        'persons' => CoursePersonController::class,
+        'course-and-person' => CoursePersonController::class,
         'courses' => CourseController::class,
         'students' => PersonController::class,
         'teachers' => TeacherController::class,

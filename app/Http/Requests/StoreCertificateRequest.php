@@ -4,13 +4,15 @@ namespace App\Http\Requests;
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCertificateRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     public function rules()
@@ -18,13 +20,13 @@ class StoreCertificateRequest extends FormRequest
         return [
             'student_name' => 'required|string|max:255',
             'student_family' => 'required|string|max:255',
-            'student_email' => 'required|email|max:255',
-            'course_id' => 'required|integer|exists:courses,id',
-            'file_path' => 'required|mimes:pdf|max:2048',
-            'practice' => 'required|string',
-            'certificate_protection' => 'required|string',
-            'finish_course' => 'required|date',
+            'student_email' => 'required|string',
+            'course_id' => 'required|exists:courses,id',
+            'file_path' => 'nullable',
+            'practice' => 'required',
+            'certificate_protection' => 'required',
+            'finish_course' => 'required',
+            'created_at' => Carbon::now()
         ];
     }
 }
-
