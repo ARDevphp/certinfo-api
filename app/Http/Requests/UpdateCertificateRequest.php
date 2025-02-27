@@ -14,13 +14,14 @@ class UpdateCertificateRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_name' => 'sometimes|string|max:255',
-            'student_family' => 'sometimes|string|max:255',
-            'student_email' => 'sometimes|email|max:255',
-            'course_id' => 'sometimes|integer',
-            'practice' => 'sometimes|string',
-            'certificate_protection' => 'sometimes|string',
-            'finish_course' => 'sometimes|date',
+            'student_name' => 'required|string|max:255',
+            'student_family' => 'required|string|max:255',
+            'student_email' => 'required|email|max:255',
+            'course_id' => 'required|array',
+            'file_path' => 'required|array',
+            'practice' => 'required|string',
+            'certificate_protection' => 'required|string',
+            'finish_course' => 'required|date',
         ];
     }
 }

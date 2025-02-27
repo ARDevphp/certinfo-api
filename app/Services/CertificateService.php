@@ -7,6 +7,7 @@ namespace App\Services;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Writer\SvgWriter;
+use Imagick;
 
 class CertificateService
 {
@@ -25,7 +26,7 @@ class CertificateService
         return $qrSvgPath;
     }
 
-    public function mergeQrWithTemplate(string $qrPath, string $name, string $surname, string $finish_course): string
+    public function mergeQrWithTemplate(string $qrPath, string $name, string $surname, string $course_name): string
     {
         $templatePath = storage_path('app/public/photo/certificateTemplate.svg');
 
@@ -34,41 +35,36 @@ class CertificateService
 
         $imageTag = '<image x="258" y="551" width="88" height="88" href="data:image/svg+xml;base64,' .
             base64_encode($qrSvg) . '" />';
-        $nameTag = '<text x="50%" y="46%" font-size="40" fill="#CCB800" font-family="Arial" text-anchor="middle" dominant-baseline="middle">' .
+        $nameTag = '<text x="50%" y="45%" font-size="40" fill="#CCB800" font-family="Arial" text-anchor="middle" dominant-baseline="middle">' .
             htmlspecialchars($name . ' ' . $surname) . '</text>';
 
-        $date = '<text style="font-weight: 900; color: #FFD700; font-size: 20px;"
-                       x="274" y="85" font-family="Arial, sans-serif" fill="#FFDD33"
-                 >'. date('Y') . '</text>';
+        $course = '<text x="50%" y="58%" font-family="Arial, sans-serif" font-size="34" fill="black" text-anchor="middle">' . "$course_name" . '</text>';
 
-        $combinedSvg = str_replace('</svg>', $imageTag . $nameTag . $date . '</svg>', $mainSvg);
+        $date = '<text style="font-weight: 900; color: #FFD700; font-size: 20px;" x="274" y="85" font-family="Arial, sans-serif" fill="#FFDD33">'. date('Y') . '</text>';
+
+        $combinedSvg = str_replace('</svg>', $imageTag. $course. $nameTag. $date. '</svg>', $mainSvg);
 
         unlink($qrPath);
-        $combinedSvgPath = storage_path('app/public/' . $name . uniqid() . '.svg');
+        $combinedSvgPath = storage_path('app/public/certificatePhotos/' . $name . uniqid() . '.svg');
         file_put_contents($combinedSvgPath, $combinedSvg);
+        $this->convertSvgToPngWithImagick($combinedSvgPath);
 
         return $combinedSvgPath;
     }
 
-//    public function convertSvgToPngWithImagick(string $svgPath): string
-//    {
-//        $imagick = new \Imagick();
-//
-//        // DPI ni sozlash
-//        $imagick->setResolution(300, 300);
-//
-//        $imagick->readImage($svgPath);
-//        $imagick->setImageFormat('png');
-//        $imagick->setOption('svg:use-librsvg', 'true');
-//        $imagick->setOption('png:compression-level', '0'); // Kompressiyani o'chirish
-//
-//
-//        // Rasm sifati
-//        $imagick->setImageCompressionQuality(100);
-//
-//        $pngPath = storage_path('app/public/' . uniqid() . '.png');
-//        $imagick->writeImage($pngPath);
-//
-//        return $pngPath;
-//    }
+    public function convertSvgToPngWithImagick(string $svgPath): string
+    {
+
+        $image = new Imagick();
+        $image->readImageBlob(file_get_contents($svgPath));
+        $image->setImageFormat("png24");
+        $image->resizeImage(1024, 768, Imagick::FILTER_LANCZOS, 1);
+
+        $pngPath = storage_path('app/public/' . uniqid() . '.png');
+        $image->writeImage($pngPath);
+        $image->clear();
+        $image->destroy(); // Memoryni tozalash
+
+        return $pngPath;
+    }
 }

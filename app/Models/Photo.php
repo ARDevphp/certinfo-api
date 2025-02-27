@@ -11,10 +11,20 @@ class Photo extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['path'];
     protected $guarded = [];
 
     public function photoable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function getFullPath(): string
+    {
+        if (str_contains($this->path, 'people')) {
+            return asset('storage/people/' . basename($this->path));
+        } else {
+            return asset('storage/certificatePhotos/' . basename($this->path));
+        }
     }
 }

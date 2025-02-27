@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Person;
+use App\Models\Photo;
 use App\Models\User;
 use App\Models\Certificate;
 use App\Mail\CertificateMail;
@@ -40,13 +43,25 @@ class CertificateController extends Controller
 
     public function store(StoreCertificateRequest $request)
     {
-        $qrcodeSvgPath = $this->certificateService->generateQrCode($request->fullUrl() . 1);
+        $user = User::where('email', $request->student_email)->first();
+
+        $people = Person::where('user_id', $user->id)->first();
+        $courseName = Course::findOrFail($request->course_id);
+        $nextCertId = Certificate::max('id') + 1;
+
+        $qrcodeSvgPath = $this->certificateService->generateQrCode($request->current_url . $nextCertId);
 
         $combinedSvgPath = $this->certificateService
-            ->mergeQrWithTemplate($qrcodeSvgPath, $request->student_name, $request->student_family, $request->finish_course);
+            ->mergeQrWithTemplate($qrcodeSvgPath, $request->student_name, $request->student_family, $courseName->name);
 
-        $certificateFile = array_merge($request->validated(), ['file_path' => $combinedSvgPath]);
-        $certificate = Certificate::create($certificateFile);
+        $photo = Photo::create(['path' => $combinedSvgPath]);
+
+      $certificateData = array_merge($request->validated(), [
+          'people_id' => $people->id,
+          'file_path' => $photo->id,
+        ]);
+
+        $certificate = Certificate::create($certificateData);
 
 //        Notification::send(auth()->user(), new CertificateCreatedNotification($post));
 //
@@ -64,10 +79,9 @@ class CertificateController extends Controller
         return $this->response(new CertificateResource(Certificate::where('id', $certificate)->firstOrFail()));
     }
 
-    public function update(UpdateCertificateRequest $request, $id): JsonResponse
+    public function update(UpdateCertificateRequest $request, $id)
     {
         $certificate = Certificate::find($id);
-        $certificate->update($request->validated());
 
         return $this->response(['message' => 'Certificate muvaffaqiyatli yangilandi!']);
     }
