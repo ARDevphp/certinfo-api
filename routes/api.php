@@ -11,18 +11,17 @@ use App\Http\Controllers\CoursePersonController;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
-Route::post('logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('change-password', [AuthController::class, 'changePassword']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('change-password', [AuthController::class, 'changePassword']);
     Route::post('certificates/download/{id}', [PdfController::class, 'certPdfDownload']);
 
     Route::apiResources([
-        'course-and-person' => CoursePersonController::class,
+        'users' => PersonController::class,
         'courses' => CourseController::class,
-        'students' => PersonController::class,
         'teachers' => TeacherController::class,
         'certificates' => CertificateController::class,
+        'course-and-person' => CoursePersonController::class,
     ]);
 });

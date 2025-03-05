@@ -18,7 +18,7 @@ class CertificateResource extends JsonResource
             'student_family' => $this->student_family,
             'student_email' => $this->student_email,
             'people_id' => PersonResource::collection(Person::whereId($this->people_id)->get()),
-            'course_id' => Course::whereId($this->course_id)->get('name'),
+            'course_id' => Course::whereId($this->course_id)->get(),
             'practice' => $this->practice,
             'file_path' => PhotoResource::collection(Photo::whereId($this->file_path)->get()),
             'certificate_protection' => $this->certificate_protection,

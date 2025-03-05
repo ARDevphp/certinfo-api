@@ -22,7 +22,8 @@ class PersonController extends Controller
 
     public function show($id)
     {
-        return $this->response(new PersonResource(Person::where('id', $id)->first()));
+        $person = Person::where('user_id', $id)->firstOrFail();
+        return $this->response(new PersonResource($person));
     }
 
 

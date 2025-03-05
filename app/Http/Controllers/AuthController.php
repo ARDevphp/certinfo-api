@@ -24,7 +24,10 @@ class AuthController extends Controller
             ]);
         }
 
-        return $this->response($user->createToken($request->email)->plainTextToken);
+        return $this->response([
+            'token' => $user->createToken($request->email)->plainTextToken,
+            'user' => new UserResource($user)
+        ]);
     }
 
     public function logout(Request $request)

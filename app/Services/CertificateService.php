@@ -47,7 +47,9 @@ class CertificateService
         unlink($qrPath);
         $combinedSvgPath = storage_path('app/public/certificatePhotos/' . $name . uniqid() . '.svg');
         file_put_contents($combinedSvgPath, $combinedSvg);
-        $this->convertSvgToPngWithImagick($combinedSvgPath);
+
+//        svg to png converting
+//        $this->convertSvgToPngWithImagick($combinedSvgPath);
 
         return $combinedSvgPath;
     }

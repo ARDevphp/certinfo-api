@@ -21,7 +21,7 @@ class PdfController
             'student_name' => $certificate->student_name,
             'student_family' => $certificate->student_family,
             'course_name' => $course->name,
-            'file_path' => $svgPath
+            'file_path' => file_get_contents($svgPath)
         ];
 
         $pdf = Pdf::loadView('certificates.pdf', $certData);

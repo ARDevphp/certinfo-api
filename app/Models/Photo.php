@@ -11,7 +11,7 @@ class Photo extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['path'];
+    protected $fillable = ['id', 'path'];
     protected $guarded = [];
 
     public function photoable(): MorphTo
