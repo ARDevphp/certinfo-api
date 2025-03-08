@@ -6,6 +6,7 @@ use App\Http\Resources\PersonResource;
 use App\Models\Person;
 use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
+use Illuminate\Http\Request;
 
 class PersonController extends Controller
 {
@@ -27,9 +28,9 @@ class PersonController extends Controller
     }
 
 
-    public function update(UpdatePersonRequest $request, Person $person)
+    public function update(Request $request, Person $person)
     {
-        //
+        return $request;
     }
 
     public function destroy(Person $person)
