@@ -7,7 +7,10 @@ namespace App\Services;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Writer\SvgWriter;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Storage;
 use Imagick;
+use Spatie\Browsershot\Browsershot;
 
 class CertificateService
 {
@@ -15,7 +18,7 @@ class CertificateService
     {
         $qrCode = Builder::create()
             ->data($data)
-            ->size(200)
+            ->size(250)
             ->margin(10)
             ->writer(new SvgWriter())
             ->build();
@@ -28,7 +31,7 @@ class CertificateService
 
     public function mergeQrWithTemplate(string $qrPath, string $name, string $surname, string $course_name): string
     {
-        $templatePath = storage_path('app/public/photo/certificateTemplate.svg');
+        $templatePath = storage_path('app/public/certificatePhotos/certificateTemplate.svg');
 
         $mainSvg = file_get_contents($templatePath);
         $qrSvg = file_get_contents($qrPath);
@@ -44,29 +47,9 @@ class CertificateService
 
         $combinedSvg = str_replace('</svg>', $imageTag. $course. $nameTag. $date. '</svg>', $mainSvg);
 
-        unlink($qrPath);
         $combinedSvgPath = storage_path('app/public/certificatePhotos/' . $name . uniqid() . '.svg');
         file_put_contents($combinedSvgPath, $combinedSvg);
 
-//        svg to png converting
-//        $this->convertSvgToPngWithImagick($combinedSvgPath);
-
         return $combinedSvgPath;
-    }
-
-    public function convertSvgToPngWithImagick(string $svgPath): string
-    {
-
-        $image = new Imagick();
-        $image->readImageBlob(file_get_contents($svgPath));
-        $image->setImageFormat("png24");
-        $image->resizeImage(1024, 768, Imagick::FILTER_LANCZOS, 1);
-
-        $pngPath = storage_path('app/public/' . uniqid() . '.png');
-        $image->writeImage($pngPath);
-        $image->clear();
-        $image->destroy(); // Memoryni tozalash
-
-        return $pngPath;
     }
 }

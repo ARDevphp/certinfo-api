@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('practice');
             $table->text('certificate_protection');
             $table->date('finish_course');
+            $table->string('qr_code');
             $table->softDeletes();
             $table->timestamps();
         });

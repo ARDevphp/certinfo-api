@@ -27,26 +27,54 @@ class CertificateController extends Controller
     {
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $paginate = Certificate::paginate(11);
+        try {
+            $query = Certificate::query();
 
-        return response()->json([
-            'data' => CertificateResource::collection($paginate),
-            'pagination' => [
-                'currentPage' => $paginate->currentPage(),
-                'lastPage' => $paginate->lastPage(),
-                'perPage' => $paginate->perPage(),
-                'total' => $paginate->total(),
-            ]
-        ]);
+            if ($request->has('search')) {
+                $search = $request->input('search');
+                $query->where('student_name', 'like', "%$search%")
+                    ->orWhere('student_family', 'like', "%$search%")
+                    ->orWhereHas('course', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    });
+            }
+
+            if ($request->has('courseFinishedDate')) {
+                $courseFinishedDate = $request->input('courseFinishedDate');
+
+                if (isset($courseFinishedDate['before'])) {
+                    $query->whereDate('created_at', '<=', $courseFinishedDate['before']);
+                }
+
+                if (isset($courseFinishedDate['after'])) {
+                    $query->whereDate('created_at', '>=', $courseFinishedDate['after']);
+                }
+            }
+
+            // Paginate
+            $paginate = $query->paginate(11);
+
+            return response()->json([
+                'data' => CertificateResource::collection($paginate),
+                'pagination' => [
+                    'currentPage' => $paginate->currentPage(),
+                    'lastPage' => $paginate->lastPage(),
+                    'perPage' => $paginate->perPage(),
+                    'total' => $paginate->total(),
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return $this->response('error search');
+        }
     }
 
     public function store(StoreCertificateRequest $request)
     {
         $user = User::where('email', $request->student_email)->first();
-
         $people = Person::where('user_id', $user->id)->first();
+
         $courseName = Course::findOrFail($request->course_id);
         $nextCertId = Certificate::max('id') + 1;
 

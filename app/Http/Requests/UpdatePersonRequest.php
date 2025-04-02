@@ -11,18 +11,18 @@ class UpdatePersonRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'id' => 'required|integer',
+            'email' => 'required|email|max:255',
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'oldPhoto_id' => 'nullable|integer|exists:photos,id',
+            'newPhoto_id' => 'nullable|integer|exists:photos,id',
         ];
     }
 }

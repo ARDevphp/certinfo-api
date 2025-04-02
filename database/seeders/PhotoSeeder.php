@@ -14,27 +14,13 @@ class PhotoSeeder extends Seeder
     public function run(): void
     {
         Photo::create([
-            'path' => 'http://lorempixel.com/640/480/sports/',
+            'path' => 'people/1742272074_aandalus.jpg',
         ]);
-
         Photo::create([
-            'path' => 'http://lorempixel.com/640/480/sports/',
+            'path' => '/var/www/html/storage/app/public/certificatePhotos/Abdulaziz67d8f96b772b5.svg',
         ]);
-
-        Photo::create([
-            'path' => 'http://lorempixel.com/640/480/sports/',
-        ]);
-
-        Photo::create([
-            'path' => 'http://lorempixel.com/640/480/sports/',
-        ]);
-
-        Photo::create([
-            'path' => 'http://lorempixel.com/640/480/sports/',
-        ]);
-
-        Photo::create([
-            'path' => 'http://lorempixel.com/640/480/sports/',
-        ]);
+         Photo::create([
+             'path' => 'people/PHP.jpg',
+         ]);
     }
 }

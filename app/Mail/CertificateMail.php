@@ -10,12 +10,8 @@ use Illuminate\Queue\SerializesModels;
 class CertificateMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $certificate;
-
-    public function __construct(Certificate $certificate)
+    public function __construct(private Certificate $certificate)
     {
-        $this->certificate = $certificate;
     }
 
     public function build()

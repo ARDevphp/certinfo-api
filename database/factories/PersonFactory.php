@@ -13,7 +13,7 @@ class PersonFactory extends Factory
             'firstname' => fake()->name,
             'lastname' => fake()->name,
             'birthday' => '2024-09-24',
-            'photo_id' => 2
+            'photo_id' => 1
         ];
     }
 }

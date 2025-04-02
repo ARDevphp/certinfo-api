@@ -2,4 +2,6 @@
 <!DOCTYPE policymap PUBLIC "-//ImageMagick//DTD Policy File//EN" "http://www.imagemagick.org/script/policy.xml">
 <policymap>
     <policy domain="coder" rights="read|write" pattern="PDF" />
+    <policy domain="coder" rights="read|write" pattern="PNG" />
+    <policy domain="coder" rights="read|write" pattern="JPEG" />
 </policymap>

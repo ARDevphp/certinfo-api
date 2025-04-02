@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CourseResource;
 use App\Models\Course;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\CourseResource;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {

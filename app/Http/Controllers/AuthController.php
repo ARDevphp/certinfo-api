@@ -18,9 +18,15 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!$user) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'message' => "Bunday email ro'yxatdan o'tmagan",
+            ]);
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'message' => "Parol noto'g'ri kiritildi",
             ]);
         }
 
@@ -37,49 +43,9 @@ class AuthController extends Controller
         return $this->response(['message' => 'Successfully logged out']);
     }
 
-    public function register(StoreUserRequest $request)
-    {
-        $validatedData = $request->validated();
-
-        $user = User::create([
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
-
-        return $this->response([
-            'token' => $user->createToken($user->email)->plainTextToken,
-            'user' => $user
-        ]);
-    }
-
-    public function changePassword(ChangePasswordRequest $request)
-    {
-        $validatedData = $request->validated();
-
-        $user = $request->user();
-
-        if (!Hash::check($validatedData['old_password'], $user->password)) {
-            return $this->response(['message' => 'Old password is incorrect'], 400);
-        }
-
-        $user->update([
-            'password' => Hash::make($validatedData['password'])
-        ]);
-
-        return $this->response(['message' => 'Password changed successfully']);
-    }
-
 
     public function user(Request $request): JsonResponse
     {
         return $this->response(new UserResource($request->user()));
-    }
-
-    public function deleteUser(Request $request): JsonResponse
-    {
-        $user = $request->user();
-        $user->delete();
-
-        return $this->response(['message' => 'User deleted successfully']);
     }
 }
