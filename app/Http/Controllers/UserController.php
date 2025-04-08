@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\VerifySmsCodeRequest;
 use App\Http\Resources\UserResource;
-use App\Mail\PasswordResetCodeMail;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+    public function user(Request $request): JsonResponse
+    {
+        return $this->response(new UserResource($request->user()));
+    }
     public function register(StoreUserRequest $request)
     {
         $cachedData = Cache::get("verification_{$request->email}");

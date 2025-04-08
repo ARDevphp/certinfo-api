@@ -1,7 +1,2 @@
-.a {
-    background: chartreuse;
-    color: blue;
-}
-body{
-    color: chartreuse;
-}
+@import "tailwindcss";
+@source "../views/app";

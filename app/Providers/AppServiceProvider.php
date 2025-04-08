@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\CertificateService;
+use App\Services\Certificate\CertificateService;
 use App\Services\CertificateServiceInterface;
 use Illuminate\Support\ServiceProvider;
 

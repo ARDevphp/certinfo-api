@@ -1,6 +1,7 @@
 FROM php:8.2.0-fpm
 
 RUN apt-get update && apt-get install -y \
+        inkscape \
         wkhtmltopdf \
         cron \
         git \

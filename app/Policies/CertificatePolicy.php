@@ -4,24 +4,18 @@ namespace App\Policies;
 
 use App\Models\Certificate;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CertificatePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
+
     public function view(User $user, Certificate $certificate): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +23,7 @@ class CertificatePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +31,7 @@ class CertificatePolicy
      */
     public function update(User $user, Certificate $certificate): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +39,7 @@ class CertificatePolicy
      */
     public function delete(User $user, Certificate $certificate): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +47,7 @@ class CertificatePolicy
      */
     public function restore(User $user, Certificate $certificate): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -61,6 +55,6 @@ class CertificatePolicy
      */
     public function forceDelete(User $user, Certificate $certificate): bool
     {
-        //
+        return true;
     }
 }

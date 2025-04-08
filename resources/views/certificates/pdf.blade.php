@@ -60,7 +60,7 @@
 <body>
 <div class="certificate">
     <div class="certificate-container">
-        <div class="text-red-500 text-3xl">Salom, Tailwind!</div>
+        <div class="text-red-500 text-gray-50xl">Salom,ishla wqqw Tailwind!</div>
         <img src="data:image/svg;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="Certificate">
         <img class="qr-code" width="5px" height="5px" src="data:image/svg;base64,{{ base64_encode(file_get_contents( $qr_code )) }}" alt="qr_code">
         <div class="student-name">Mirzayev Abdulaziz</div>

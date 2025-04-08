@@ -2,71 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCertificateRequest;
+use App\Http\Resources\CertificateResource;
+use App\Mail\CertificateMail;
+use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\Person;
 use App\Models\Photo;
 use App\Models\User;
-use App\Models\Certificate;
-use App\Mail\CertificateMail;
 use App\Notifications\CertificateCreatedNotification;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Certificate\CertificateSearchServices;
+use App\Services\Certificate\CertificateService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Mail;
-use App\Services\CertificateService;
 use Illuminate\Http\Request;
-use App\Http\Resources\CertificateResource;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
-use App\Http\Requests\StoreCertificateRequest;
-use App\Http\Requests\UpdateCertificateRequest;
-use Illuminate\Support\Facades\Storage;
 
 class CertificateController extends Controller
 {
 
-    public function __construct(protected CertificateService $certificateService)
-    {
+    public function __construct(
+        protected CertificateSearchServices $certificateSearchServices,
+        protected CertificateService $certificateService,
+    ){
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
         try {
-            $query = Certificate::query();
+            $paginate = $this->certificateSearchServices->getCertificatesData();
 
-            if ($request->has('search')) {
-                $search = $request->input('search');
-                $query->where('student_name', 'like', "%$search%")
-                    ->orWhere('student_family', 'like', "%$search%")
-                    ->orWhereHas('course', function ($q) use ($search) {
-                        $q->where('name', 'like', "%$search%");
-                    });
-            }
-
-            if ($request->has('courseFinishedDate')) {
-                $courseFinishedDate = $request->input('courseFinishedDate');
-
-                if (isset($courseFinishedDate['before'])) {
-                    $query->whereDate('created_at', '<=', $courseFinishedDate['before']);
-                }
-
-                if (isset($courseFinishedDate['after'])) {
-                    $query->whereDate('created_at', '>=', $courseFinishedDate['after']);
-                }
-            }
-
-            // Paginate
-            $paginate = $query->paginate(11);
-
-            return response()->json([
+            return $this->success('Sertifikatlar ro‘yxati', [
                 'data' => CertificateResource::collection($paginate),
                 'pagination' => [
+                    'certCount' => Certificate::all()->count(),
                     'currentPage' => $paginate->currentPage(),
                     'lastPage' => $paginate->lastPage(),
                     'perPage' => $paginate->perPage(),
                     'total' => $paginate->total(),
                 ]
             ]);
-        } catch (\Exception $e) {
-            return $this->response('error search');
+
+        } catch (\Exception $exception) {
+            return $this->error('Certificate listda xatolik yuz berdi');
         }
     }
 
@@ -78,23 +57,25 @@ class CertificateController extends Controller
         $courseName = Course::findOrFail($request->course_id);
         $nextCertId = Certificate::max('id') + 1;
 
-        $qrcodeSvgPath = $this->certificateService->generateQrCode($request->current_url . $nextCertId);
+        $qrCodeUrl = $request->current_url . $nextCertId;
 
         $combinedSvgPath = $this->certificateService
-            ->mergeQrWithTemplate($qrcodeSvgPath, $request->student_name, $request->student_family, $courseName->name);
+            ->mergeQrWithTemplate($request->student_name, $request->student_family, $courseName->name, $qrCodeUrl);
+
 
         $photo = Photo::create(['path' => $combinedSvgPath]);
 
         $certificateData = array_merge($request->validated(), [
             'people_id' => $people->id,
             'file_path' => $photo->id,
+            'created_at' => Carbon::now(),
         ]);
 
         $certificate = Certificate::create($certificateData);
 
-//        Notification::send(auth()->user(), new CertificateCreatedNotification($post));
+//        Notification::send(auth()->user(), new CertificateCreatedNotification($certificate));
 //
-//        $certificate = Certificate::findOrFail($post);
+//        $certificate = Certificate::findOrFail($certificate);
 //        Mail::to($request->student_email)->send(new CertificateMail($certificate));
 
         return response()->json([

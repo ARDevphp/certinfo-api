@@ -2,27 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Certificate;
-use App\Models\Course;
-use App\Models\Photo;
-use App\Services\CertificateService;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Certificate\SvgToPdfServices;
 
-class PdfController
+class PdfController extends Controller
 {
-    public function __construct(private CertificateService $certificateService)
+    public function __construct(protected SvgToPdfServices $svgToPdfServices)
     {
     }
 
     public function certPdfDownload($certificateId)
     {
-        $imagePath = storage_path('app/public/certificatePhotos/certificate.png');
+        $pdfPath = $this->svgToPdfServices->pdfDownload($certificateId);
 
-        $qr_code = $this->certificateService->generateQrCode('http://localhost:5173/certificates/2');
-
-        $pdf = Pdf::loadView('certificates.pdf', ['imagePath' => $imagePath, 'qr_code' => $qr_code])->setPaper('a4', 'portrait');
-
-        return $pdf->download('certificate.pdf');
+        return response()->download($pdfPath)->deleteFileAfterSend(true);
     }
-
 }

@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Validation\ValidationException;
-use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\StoreAuthRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -19,15 +16,11 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            throw ValidationException::withMessages([
-                'message' => "Bunday email ro'yxatdan o'tmagan",
-            ]);
+            $this->throwValidationError("Bunday foydalanuv ro'yxatdan o'tmagan");
         }
 
         if (!Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'message' => "Parol noto'g'ri kiritildi",
-            ]);
+           $this->throwValidationError("Parol noto'g'ri kiritildi");
         }
 
         return $this->response([
@@ -43,9 +36,8 @@ class AuthController extends Controller
         return $this->response(['message' => 'Successfully logged out']);
     }
 
-
-    public function user(Request $request): JsonResponse
+    private function throwValidationError(string $message): ValidationException
     {
-        return $this->response(new UserResource($request->user()));
+        return ValidationException::withMessages(['message' => $message]);
     }
 }
