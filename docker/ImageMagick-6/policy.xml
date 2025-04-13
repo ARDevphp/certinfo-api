@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE policymap PUBLIC "-//ImageMagick//DTD Policy File//EN" "http://www.imagemagick.org/script/policy.xml">
+
 <policymap>
     <policy domain="coder" rights="read|write" pattern="PDF" />
     <policy domain="coder" rights="read|write" pattern="PNG" />

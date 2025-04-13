@@ -67,7 +67,7 @@ class UserController extends Controller
     }
 
 
-    public function verificationCode(ResetPasswordRequest $request)
+    public function verificationCode(Request $request)
     {
         $data = Cache::get("admin_verification_{$request->email}");
 

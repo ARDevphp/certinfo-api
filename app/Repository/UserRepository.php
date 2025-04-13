@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Models\Certificate;
 use App\Models\User;
 
 class UserRepository
@@ -13,6 +12,6 @@ class UserRepository
     }
     public function findById(int $id): User
     {
-        return Certificate::where('id', $id)->first();
+        return User::where('id', $id)->first();
     }
 }

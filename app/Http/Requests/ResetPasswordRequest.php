@@ -9,7 +9,7 @@ class ResetPasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'code' => 'Kod Xato kiritildi',
+            'email' => "Bunday email ro'xatdan o'tmagan",
         ];
     }
 
@@ -21,8 +21,7 @@ class ResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'code' => 'required|integer',
+            'email' => 'required|email|exists:users,email',
         ];
     }
 }

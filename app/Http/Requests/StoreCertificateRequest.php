@@ -13,13 +13,13 @@ class StoreCertificateRequest extends FormRequest
     public function messages()
     {
         return [
-            'student_name.required' => 'Student ism',
-            'student_family.required' => 'Student familyasini ',
-            'student_email.required' => 'Student email kiriting',
-            'course_id.required' => 'Student Bitirgan kursni tanlang',
-            'practice.required' => 'required',
-            'finish_course' => 'required',
-            'current_url' => 'required|url',
+            'student_name' => 'Student ism',
+            'student_family' => 'Student familyasini ',
+            'student_email' => 'Student email kiriting',
+            'course_id' => 'Student Bitirgan kursni tanlang',
+            'practice' => "Praktikada qanshganli to'g'risida malumot bering",
+            'certificate_protection' => "Certificate himoyasi qanday qilinsin",
+            'finish_course' => 'Kursni tugatganli vaqtini kiriting',
         ];
     }
 

@@ -2,10 +2,9 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 
 class ResetPasswordNotification extends Notification
 {
@@ -17,7 +16,7 @@ class ResetPasswordNotification extends Notification
         $this->token = $token;
     }
 
-    public function via(object $notifiable): array
+    public function via(): array
     {
         return ['mail'];
     }
@@ -34,7 +33,7 @@ class ResetPasswordNotification extends Notification
             ->line('Agar siz so‘rov yubormagan bo‘lsangiz, bu xabarni e’tiborsiz qoldiring.');
     }
 
-    public function toArray(object $notifiable): array
+    public function toArray(): array
     {
         return [
             'token' => $this->token,

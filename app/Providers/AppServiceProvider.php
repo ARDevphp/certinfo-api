@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Certificate\CertificateService;
+use App\Services\Certificate\CertificateCreateService;
 use App\Services\CertificateServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(CertificateServiceInterface::class, CertificateService::class);
+        $this->app->bind(CertificateServiceInterface::class, CertificateCreateService::class);
     }
 
     /**

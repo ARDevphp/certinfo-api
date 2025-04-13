@@ -6,8 +6,11 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QrCodeService
 {
-    public function generateQrCode(string $current_url)
+    public function generateQrCode(string $current_url): string
     {
-        return QrCode::format('png')->size(130)->generate($current_url);
+        $qrPath = QrCode::format('png')->size(130)->generate($current_url);
+        $qrBinary = (string) $qrPath;
+
+        return base64_encode($qrBinary);
     }
 }

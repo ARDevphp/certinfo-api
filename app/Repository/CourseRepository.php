@@ -16,4 +16,9 @@ class CourseRepository
             'course_' => $data['start_course'],
         ]);
     }
+
+    public function findCourseById(int $id): Course
+    {
+        return Course::where('id', $id)->first();
+    }
 }

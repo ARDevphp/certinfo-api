@@ -9,7 +9,6 @@ use App\Models\Person;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\PersonResource;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 
 class PersonController extends Controller

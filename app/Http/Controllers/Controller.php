@@ -15,17 +15,17 @@ class Controller extends BaseController
     {
         return response()->json([
             'data' => $data,
-        ]);
+        ], 200);
     }
 
-    public function success(string $message = null, $data = null): JsonResponse
+    public function success(string $message = null, $data = null, $code = null): JsonResponse
     {
         return response()->json([
             'success' => true,
             'status' => 'success',
             'message' => $message ?? 'operation successfull',
             'data' => $data,
-        ]);
+        ], $code ?? 200);
     }
 
     public function error(string $message, $data = null): JsonResponse

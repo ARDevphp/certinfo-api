@@ -16,7 +16,8 @@ class CertificateMail extends Mailable
 
     public function build()
     {
-        return $this->view('emails.certificate')
-            ->with(['certificate' => $this->certificate]);
+        return $this->subject('Serticatni oling iltimos')
+                    ->view('emails.edd', ['certificate' => $this->certificate])
+                    ->with(['certificate' => $this->certificate]);
     }
 }

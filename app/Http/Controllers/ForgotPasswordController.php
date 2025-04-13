@@ -13,8 +13,6 @@ class ForgotPasswordController extends Controller
 {
     public function sendResetLinkEmail(ResetPasswordRequest $request)
     {
-        $request->validate(['email' => 'required|email|exists:users,email']);
-
         $user = User::where('email', $request->email)->first();
 
         $token = Str::random(64);
@@ -28,5 +26,4 @@ class ForgotPasswordController extends Controller
 
         return response()->json(['message' => 'Parolni tiklash linki emailga yuborildi.']);
     }
-
 }

@@ -6,10 +6,10 @@ use App\Models\Photo;
 
 class PhotoRepository
 {
-    public function create(array $data)
+    public function create($path)
     {
         return Photo::create([
-            'path' => $data['path'],
+            'path' => $path,
         ]);
     }
 

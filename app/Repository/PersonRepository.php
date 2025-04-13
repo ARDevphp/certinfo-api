@@ -10,4 +10,9 @@ class PersonRepository
     {
         return Person::where('user_id', $userId)->first();
     }
+
+    public function findById(int $id): Person
+    {
+        return Person::where('id', $id)->first();
+    }
 }

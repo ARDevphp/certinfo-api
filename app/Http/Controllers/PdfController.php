@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Certificate\SvgToPdfServices;
+use App\Services\Certificate\SvgToPdfService;
 
 class PdfController extends Controller
 {
-    public function __construct(protected SvgToPdfServices $svgToPdfServices)
+    public function __construct(protected SvgToPdfService $svgToPdfServices)
     {
     }
 

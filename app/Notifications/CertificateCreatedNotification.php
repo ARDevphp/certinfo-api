@@ -14,16 +14,13 @@ class CertificateCreatedNotification extends Notification implements ShouldQueue
 
     public function __construct(private Certificate $certificate)
     {
-        //
     }
 
-    public function via(object $notifiable): array
+    public function via(): array
     {
-        return $notifiable->prefers_sms ? ['voyage'] : ['mail', 'database'];
+        return ['mail', 'database'];
     }
-    /**
-     * Get the mail representation of the notification.
-     */
+
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
@@ -31,11 +28,7 @@ class CertificateCreatedNotification extends Notification implements ShouldQueue
             ->action('Notification Action', url('/'))
             ->line('Thank you for using our application!');
     }
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
+
     public function toArray(object $notifiable): array
     {
         return [
