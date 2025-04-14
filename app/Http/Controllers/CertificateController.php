@@ -47,7 +47,7 @@ class CertificateController extends Controller
 
     public function show($certificate)
     {
-        return $this->response(new CertificateResource($this->certificateShowService->showCertificate($certificate)));
+        return $this->response(new CertificateResource($this->certificateShowService->showCertificate($certificate)), 200);
     }
 
     public function update(UpdateCertificateRequest $request, $id)

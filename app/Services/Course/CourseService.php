@@ -2,14 +2,22 @@
 
 namespace App\Services\Course;
 
+use App\Models\Course;
+use App\Repository\CourseRepository;
+
 class CourseService
 {
-    public function __construct()
+    public function __construct(protected CourseRepository $courseRepository)
     {
     }
 
-    public function createCourse(array $data)
+    public function allShow()
     {
-        return $data;
+        return $this->courseRepository->all();
+    }
+
+    public function createCourse(array $data):Course
+    {
+        return $this->courseRepository->create($data);
     }
 }

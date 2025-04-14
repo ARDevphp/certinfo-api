@@ -12,7 +12,7 @@ class CertificateCreatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(private Certificate $certificate)
+    public function __construct(protected Certificate $certificate)
     {
     }
 

@@ -2,48 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
-use Illuminate\Http\JsonResponse;
-use App\Http\Resources\CourseResource;
-use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Resources\CourseResource;
+use App\Services\Course\CourseService;
+use Illuminate\Http\JsonResponse;
+use App\Models\Course;
 
 class CourseController extends Controller
 {
-    public function index(): JsonResponse
+    public function __construct(protected CourseService $courseService)
     {
-        return response()->json(CourseResource::collection(Course::all()), 200);
+    }
+
+    public function index()
+    {
+        return $this->response(CourseResource::collection($this->courseService->allShow()), 200);
     }
 
     public function store(StoreCourseRequest $request)
     {
-        $course = Course::create($request->validated());
+        $course = $this->courseService->createCourse($request->validated());
 
-        return response()->json([
+        return $this->response([
             'message' => 'Kurs muvaffaqiyatli yaratildi!',
             'course' => new CourseResource($course)
         ], 201);
     }
 
-    public function show(Course $course): JsonResponse
+    public function show(Course $course)
     {
-        return response()->json(new CourseResource($course), 200);
+        return $this->response(new CourseResource($course), 200);
     }
 
-    public function update(UpdateCourseRequest $request, Course $course): JsonResponse
+    public function update(UpdateCourseRequest $request, Course $course)
     {
         $course->update($request->validated());
 
-        return response()->json([
+        return $this->response([
             'message' => 'Kurs muvaffaqiyatli yangilandi!',
             'course' => new CourseResource($course)
         ], 200);
     }
 
-    public function destroy(Course $course): JsonResponse
+    public function destroy(Course $course)
     {
         $course->delete();
 
-        return response()->json(['message' => 'Kurs muvaffaqiyatli o\'chirildi!'], 200);
+        return $this->response('Kurs muvaffaqiyatli o\'chirildi!', 204);
     }
 }

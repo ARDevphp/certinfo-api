@@ -3,27 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ResetPasswordRequest;
-use App\Notifications\ResetPasswordNotification;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use Illuminate\Support\Str;
+use App\Services\ForgetPasswordService;
 
 class ForgotPasswordController extends Controller
 {
+    public function __construct(protected ForgetPasswordService $forgetPasswordService)
+    {
+    }
+
     public function sendResetLinkEmail(ResetPasswordRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $this->forgetPasswordService->sendResetLink($request->email);
 
-        $token = Str::random(64);
-
-        DB::table('password_reset_tokens')->updateOrInsert(
-            ['email' => $user->email],
-            ['token' => $token,  'created_at' => Carbon::now()]
-        );
-
-        $user->notify(new ResetPasswordNotification($token));
-
-        return response()->json(['message' => 'Parolni tiklash linki emailga yuborildi.']);
+        return $this->response('Parolni tiklash linki emailga yuborildi.', 201);
     }
 }

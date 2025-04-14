@@ -2,14 +2,17 @@
 
 namespace App\Services\Certificate;
 
+use App\Actions\ConvertSvgToPdfAction;
 use App\Repository\CertificateRepository;
 use App\Repository\PhotoRepository;
+use App\Repository\UserRepository;
 
 class SvgToPdfService
 {
     public function __construct(
-        protected CertificateRepository $certificateRepository,
         protected PhotoRepository $photoRepository,
+        protected CertificateRepository $certificateRepository,
+        protected ConvertSvgToPdfAction $convertSvgToPdfAction,
     ){
     }
 
@@ -21,9 +24,7 @@ class SvgToPdfService
         $pdfRelativePath = 'public/certificatePdf/' . uniqid() . '.pdf';
         $pdfFullPath = storage_path("app/{$pdfRelativePath}");
 
-        $command = "inkscape \"{$svgRelativePath->path}\" --export-type=pdf --export-filename=\"{$pdfFullPath}\"";
-
-        exec($command, $output, $resultCode);
+        $this->convertSvgToPdfAction->convertPdf($svgRelativePath->path, $pdfFullPath);
 
         return $pdfFullPath;
     }

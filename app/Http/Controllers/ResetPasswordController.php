@@ -45,7 +45,7 @@ class ResetPasswordController extends Controller
 
         return $this->response([
             'message' => 'Parol muvaffaqiyatli yangilandi',
-        ]);
+        ], 201);
     }
 
 }

@@ -11,11 +11,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function response($data): JsonResponse
+    public function response($data, $code = null): JsonResponse
     {
         return response()->json([
             'data' => $data,
-        ], 200);
+        ], $code);
     }
 
     public function success(string $message = null, $data = null, $code = null): JsonResponse

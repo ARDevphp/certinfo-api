@@ -7,9 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PersonController;
-use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CertificateController;
-use App\Http\Controllers\CoursePersonController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 
@@ -28,8 +26,6 @@ Route::middleware('auth:sanctum')->group(function () {
         'users' => PersonController::class,
         'photos' => PhotoController::class,
         'courses' => CourseController::class,
-        'teachers' => TeacherController::class,
         'certificates' => CertificateController::class,
-        'course-and-person' => CoursePersonController::class,
     ]);
 });
