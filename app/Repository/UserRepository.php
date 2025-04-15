@@ -14,4 +14,11 @@ class UserRepository
     {
         return User::where('id', $id)->first();
     }
+
+    public function updateByEmail(int $userId, string $email): bool
+    {
+        $user = $this->findById($userId);
+
+        return $user->update(['email' => $email]);
+    }
 }

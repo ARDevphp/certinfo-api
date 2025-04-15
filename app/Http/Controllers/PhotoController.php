@@ -8,9 +8,8 @@ use App\Http\Requests\UpdatePhotoRequest;
 
 class PhotoController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        //
     }
 
     public function store(StorePhotoRequest $request)
@@ -33,11 +32,6 @@ class PhotoController extends Controller
         return response()->json(['error' => 'Fayl topilmadi!'], 400);
     }
 
-    public function show(Photo $photo)
-    {
-        //
-    }
-
     public function update(UpdatePhotoRequest $request, $id)
     {
         if ($request->hasFile('file')) {
@@ -51,10 +45,5 @@ class PhotoController extends Controller
         }
 
         return response()->json(['error' => 'Fayl topilmadi!'], 400);
-    }
-
-    public function destroy(Photo $photo)
-    {
-        //
     }
 }
