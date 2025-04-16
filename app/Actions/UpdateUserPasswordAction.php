@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Jobs\SendResetPasswordJob;
+use App\Repository\DBRepository;
 use App\Repository\UserRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UpdateUserPasswordAction
 {
-    public function __construct(protected UserRepository $userRepository)
+    public function __construct(protected UserRepository $userRepository, protected DBRepository $dbRepository)
     {
     }
 
@@ -26,6 +27,6 @@ class UpdateUserPasswordAction
 
         dispatch(new SendResetPasswordJob($user));
 
-        DB::table('password_reset_tokens')->where('email', $email)->delete();
+        $this->dbRepository->tokenDelete($email);
     }
 }
