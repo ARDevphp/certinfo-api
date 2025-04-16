@@ -9,7 +9,7 @@ class ResetPasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'email' => "Bunday email ro'xatdan o'tmagan",
+            'secretKey' => "kode xato",
         ];
     }
 
@@ -21,7 +21,8 @@ class ResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
+            'secretKey' => 'required',
+            'newPassword' => 'required|string|min:6',
         ];
     }
 }

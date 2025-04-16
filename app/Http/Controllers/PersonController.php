@@ -42,6 +42,6 @@ class PersonController extends Controller
     {
         $person->delete();
 
-        return response()->json(['message' => "Foydalanuvchini o'chirildi"]);
+        return $this->response("Foydalanuvchini o'chirildi", 204);
     }
 }

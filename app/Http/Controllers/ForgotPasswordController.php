@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\ResetPasswordEmailLinkRequest;
 use App\Services\ForgetPasswordService;
 
 class ForgotPasswordController extends Controller
@@ -11,7 +11,7 @@ class ForgotPasswordController extends Controller
     {
     }
 
-    public function sendResetLinkEmail(ResetPasswordRequest $request)
+    public function sendResetLinkEmail(ResetPasswordEmailLinkRequest $request)
     {
         $this->forgetPasswordService->sendResetLink($request->email);
 

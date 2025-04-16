@@ -14,7 +14,10 @@ class GenerateAndSaveTokenAction
 
         DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $email],
-            ['token' => $token,  'created_at' => Carbon::now()]
+            [
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]
         );
 
         return $token;

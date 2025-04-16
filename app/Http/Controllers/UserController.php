@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;

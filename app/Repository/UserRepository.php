@@ -21,4 +21,11 @@ class UserRepository
 
         return $user->update(['email' => $email]);
     }
+
+    public function updatePassword(int $userId, string $password): bool
+    {
+        $user = $this->findById($userId);
+
+        return $user->update(['password' => $password]);
+    }
 }
