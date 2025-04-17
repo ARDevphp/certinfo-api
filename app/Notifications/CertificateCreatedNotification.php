@@ -4,9 +4,9 @@ namespace App\Notifications;
 
 use App\Models\Certificate;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class CertificateCreatedNotification extends Notification implements ShouldQueue
 {

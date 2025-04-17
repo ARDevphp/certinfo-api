@@ -2,25 +2,18 @@
 
 namespace App\Providers;
 
-use App\Services\Certificate\CertificateCreateService;
-use App\Services\CertificateServiceInterface;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Certificate\CertificateCreateService;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
+
     public function register()
     {
-        $this->app->bind(CertificateServiceInterface::class, CertificateCreateService::class);
+        $this->app->bind( CertificateCreateService::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        //
     }
 }

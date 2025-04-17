@@ -2,8 +2,8 @@
 
 namespace App\Actions;
 
-use App\Repository\DBRepository;
 use Illuminate\Support\Str;
+use App\Repository\DBRepository;
 
 class GenerateAndSaveTokenAction
 {

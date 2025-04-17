@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ResetPasswordRequest;
 use App\Services\ResetPasswordService;
+use App\Http\Requests\ResetPasswordRequest;
 
 
 class ResetPasswordController extends Controller

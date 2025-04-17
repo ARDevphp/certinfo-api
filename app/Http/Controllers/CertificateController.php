@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Certificate\CertificateDeleteService;
-use App\Services\Certificate\CertificateSearchService;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\CertificateResource;
+use App\Http\Requests\StoreCertificateRequest;
+use App\Http\Requests\UpdateCertificateRequest;
 use App\Services\Certificate\CertificateShowService;
 use App\Services\Certificate\CertificateUpdateService;
 use App\Services\Certificate\CertificateCreateService;
-use App\Http\Requests\UpdateCertificateRequest;
-use App\Http\Requests\StoreCertificateRequest;
-use App\Http\Resources\CertificateResource;
-use Illuminate\Http\JsonResponse;
+use App\Services\Certificate\CertificateSearchService;
+use App\Services\Certificate\CertificateDeleteService;
 
 class CertificateController extends Controller
 {
 
     public function __construct(
-        protected CertificateSearchService $certificateSearchServices,
+        protected CertificateShowService $certificateShowService,
         protected CertificateUpdateService $updateCertificateService,
         protected CertificateDeleteService $certificateDeleteService,
-        protected CertificateShowService $certificateShowService,
         protected CertificateCreateService $certificateCreateService,
+        protected CertificateSearchService $certificateSearchServices,
     )
     {
     }

@@ -2,11 +2,11 @@
 
 namespace App\Jobs;
 
-use App\Mail\ResetPasswordMail;
 use App\Models\User;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use App\Mail\ResetPasswordMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendResetPasswordJob implements ShouldQueue
 {

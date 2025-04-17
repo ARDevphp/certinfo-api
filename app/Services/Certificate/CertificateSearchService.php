@@ -2,9 +2,9 @@
 
 namespace App\Services\Certificate;
 
-use App\Http\Resources\CertificateResource;
 use App\Models\Certificate;
 use Illuminate\Http\Request;
+use App\Http\Resources\CertificateResource;
 
 class CertificateSearchService
 {

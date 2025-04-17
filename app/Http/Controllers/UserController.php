@@ -2,94 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\UserResource;
+use App\Services\UserRegisterService;
+use App\Http\Requests\StoreUserRequest;
+use App\Services\ChangePasswordService;
+use App\Services\VerificationCodeService;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\VerificationCodeRequest;
 
 class UserController extends Controller
 {
+    public function __construct(
+        protected UserRegisterService  $userRegisterService,
+        protected ChangePasswordService $changePasswordService,
+        protected VerificationCodeService $verificationCodeService,
+    )
+    {
+    }
+
+
     public function user(Request $request): JsonResponse
     {
-        return $this->response(new UserResource($request->user()));
+        return $this->response(new UserResource($request->user()), 200);
     }
+
+
     public function register(StoreUserRequest $request)
     {
-        $cachedData = Cache::get("verification_{$request->email}");
-
-        if ($cachedData) {
-            $password = $cachedData['password'];
-        } else {
-
-            DB::table('users_pending_verification')->updateOrInsert(
-                ['email' => $request->email],
-                ['password' => bcrypt($request->password), 'created_at' => now()]
-            );
-            $password = bcrypt($request->password);
-        }
-
-        $code = rand(100000, 999999);
-        Cache::put("admin_verification_{$request->email}",
-                [
-                    'code' => $code,
-                    'email' => $request->email,
-                    'password' => $password
-                ],now()->addMinutes(4));
-
-//        Mail::to($request->email)->send(new PasswordResetCodeMail($code));
+        $this->userRegisterService->register($request->validated());
 
         return $this->response([
-            'code' => $code,
             'email' => $request->email,
-            'massage' => "Admin Bo'lish uchun ruxsatni kuting",
-        ]);
+            'massage' => "Admin Bo'lish uchun ruxsatni kuting yoki pochtaga yuborilga tasdiqlash kodni kiriting",
+        ], 201);
     }
 
-    public function changePassword(ChangePasswordRequest $request)
+    public function verificationCode(VerificationCodeRequest $request)
     {
-        $user = $request->user();
-
-        if (!Hash::check($request['oldPassword'], $user->password)) {
-            return response()->json(['error' => 'Eski parol xato kiritildi'], 400);
-        }
-
-        $user->update([
-            'password' => Hash::make($request['newPassword'])
-        ]);
-
-        return $this->response(['message' => 'Parol yangilandi']);
-    }
-
-
-    public function verificationCode(Request $request)
-    {
-        $data = Cache::get("admin_verification_{$request->email}");
-
-        if (!$data['code']) {
-            return $this->error( "Kod eskirgan");
-        }
-
-        if ($data['code'] != $request->code) {
-            return $this->error( "Tasdiqlash kodi noto'g'ri kiritildi");
-        }
-
-        $user = User::create([
-            'email' =>  $data['email'],
-            'password' =>  $data['password'],
-        ]);
-
-        Cache::forget("password_reset_{$request->email}");
+        $user = $this->verificationCodeService->execute($request->validated());
 
         return $this->response([
             'token' => $user->createToken('token')->plainTextToken,
             'user' => new UserResource($user),
             'message' => "Siz muvaffaqiyatli ro'yxatsan o'tingiz"
-        ]);
+        ], 201);
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $this->changePasswordService->changePassword($request->validated());
+
+        return $this->response(['message' => 'Parol yangilandi'], 201);
     }
 
     public function deleteUser(Request $request): JsonResponse
@@ -97,6 +62,6 @@ class UserController extends Controller
         $user = $request->user();
         $user->delete();
 
-        return $this->response(['message' => 'User deleted successfully']);
+        return $this->response(['message' => "Foydalanuvchi o'chirilidi"], 204);
     }
 }

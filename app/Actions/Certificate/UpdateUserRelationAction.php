@@ -2,15 +2,15 @@
 
 namespace App\Actions\Certificate;
 
-use App\Repository\PersonRepository;
-use App\Repository\UserRepository;
 use App\Models\Certificate;
+use App\Repository\UserRepository;
+use App\Repository\PersonRepository;
 
 class UpdateUserRelationAction
 {
     public function __construct(
-        protected PersonRepository $personRepository,
         protected UserRepository $userRepository,
+        protected PersonRepository $personRepository,
     ){
     }
 

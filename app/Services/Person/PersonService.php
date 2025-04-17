@@ -2,10 +2,10 @@
 
 namespace App\Services\Person;
 
-use App\Http\Resources\PersonResource;
+use App\Repository\UserRepository;
 use App\Http\Resources\UserResource;
 use App\Repository\PersonRepository;
-use App\Repository\UserRepository;
+use App\Http\Resources\PersonResource;
 
 class PersonService
 {

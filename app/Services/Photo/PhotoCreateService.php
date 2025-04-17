@@ -2,8 +2,8 @@
 
 namespace App\Services\Photo;
 
-use App\Repository\PhotoRepository;
 use Illuminate\Http\UploadedFile;
+use App\Repository\PhotoRepository;
 
 class PhotoCreateService
 {

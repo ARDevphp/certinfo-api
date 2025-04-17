@@ -2,8 +2,8 @@
 
 namespace App\Services\Certificate;
 
-use App\Repository\CertificateRepository;
 use App\Repository\PhotoRepository;
+use App\Repository\CertificateRepository;
 
 class CertificateDeleteService
 {

@@ -3,16 +3,16 @@
 namespace App\Actions\Certificate;
 
 use App\Models\Certificate;
-use App\Services\Certificate\CertificateSvgService;
-use App\Repository\CourseRepository;
 use App\Repository\PhotoRepository;
+use App\Repository\CourseRepository;
+use App\Services\Certificate\CertificateSvgService;
 
 class UpdateCertificateSvgAction
 {
     public function __construct(
-        protected CertificateSvgService $certificateSvgService,
         protected PhotoRepository $photoRepository,
         protected CourseRepository $courseRepository,
+        protected CertificateSvgService $certificateSvgService,
     ){
     }
 

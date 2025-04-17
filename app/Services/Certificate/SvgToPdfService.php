@@ -2,10 +2,9 @@
 
 namespace App\Services\Certificate;
 
+use App\Repository\PhotoRepository;
 use App\Actions\ConvertSvgToPdfAction;
 use App\Repository\CertificateRepository;
-use App\Repository\PhotoRepository;
-use App\Repository\UserRepository;
 
 class SvgToPdfService
 {

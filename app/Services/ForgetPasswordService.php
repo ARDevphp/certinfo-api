@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Actions\GenerateAndSaveTokenAction;
-use App\Jobs\SendResetPasswordEmailJob;
 use App\Repository\UserRepository;
+use App\Jobs\SendResetPasswordEmailJob;
+use App\Actions\GenerateAndSaveTokenAction;
 
 
 class ForgetPasswordService

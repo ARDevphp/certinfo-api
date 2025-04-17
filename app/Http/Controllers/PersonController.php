@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Person\PersonUpdateService;
-use App\Http\Requests\UpdatePersonRequest;
+use App\Models\Person;
 use App\Services\Person\PersonService;
 use App\Http\Resources\PersonResource;
-use App\Models\Person;
+use App\Http\Requests\UpdatePersonRequest;
+use App\Services\Person\PersonUpdateService;
 
 class PersonController extends Controller
 {
     public function __construct(
+        protected PersonService $personService,
         protected PersonUpdateService $personUpdateService,
-        protected PersonService       $personService,
     )
     {
     }
@@ -21,7 +21,7 @@ class PersonController extends Controller
     {
         $person = $this->personService->getAllPersons();
 
-        return $this->response(PersonResource::collection($person));
+        return $this->response(PersonResource::collection($person), 200);
     }
 
     public function show($id)

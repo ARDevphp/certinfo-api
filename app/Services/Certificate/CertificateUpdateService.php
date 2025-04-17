@@ -2,10 +2,10 @@
 
 namespace App\Services\Certificate;
 
-use App\Actions\Certificate\UpdateCertificateSvgAction;
-use App\Actions\Certificate\UpdateUserRelationAction;
-use App\Actions\Certificate\CheckUserDataAction;
 use App\Repository\CertificateRepository;
+use App\Actions\Certificate\CheckUserDataAction;
+use App\Actions\Certificate\UpdateUserRelationAction;
+use App\Actions\Certificate\UpdateCertificateSvgAction;
 
 class CertificateUpdateService
 {

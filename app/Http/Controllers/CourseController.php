@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateCourseRequest;
-use App\Http\Requests\StoreCourseRequest;
+use App\Models\Course;
 use App\Http\Resources\CourseResource;
 use App\Services\Course\CourseService;
-use Illuminate\Http\JsonResponse;
-use App\Models\Course;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 
 class CourseController extends Controller
 {

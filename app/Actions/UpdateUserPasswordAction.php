@@ -2,12 +2,11 @@
 
 namespace App\Actions;
 
-use App\Jobs\SendResetPasswordJob;
 use App\Repository\DBRepository;
+use App\Jobs\SendResetPasswordJob;
 use App\Repository\UserRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateUserPasswordAction
 {

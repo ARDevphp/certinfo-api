@@ -4,8 +4,8 @@ namespace App\Listeners;
 
 use App\Events\CertificateCreated;
 use App\Jobs\SendCertificateMailJob;
-use App\Notifications\CertificateCreatedNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\CertificateCreatedNotification;
 
 class SendCertificateNotification
 {

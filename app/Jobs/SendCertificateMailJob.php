@@ -2,11 +2,11 @@
 
 namespace App\Jobs;
 
-use App\Mail\CertificateMail;
 use App\Models\Certificate;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use App\Mail\CertificateMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendCertificateMailJob implements ShouldQueue
 {

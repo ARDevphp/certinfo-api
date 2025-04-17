@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ResetPasswordEmailLinkRequest;
 use App\Services\ForgetPasswordService;
+use App\Http\Requests\ResetPasswordEmailLinkRequest;
 
 class ForgotPasswordController extends Controller
 {

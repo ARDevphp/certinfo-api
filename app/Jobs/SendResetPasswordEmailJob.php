@@ -3,11 +3,11 @@
 namespace App\Jobs;
 
 use App\Models\User;
-use App\Notifications\ResetPasswordNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\ResetPasswordNotification;
 
 class SendResetPasswordEmailJob implements ShouldQueue
 {

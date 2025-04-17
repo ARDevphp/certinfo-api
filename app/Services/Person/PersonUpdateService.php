@@ -2,10 +2,9 @@
 
 namespace App\Services\Person;
 
-use App\Models\Person;
-use App\Repository\PersonRepository;
 use App\Repository\UserRepository;
 use App\Services\Photo\PhotoService;
+use App\Repository\PersonRepository;
 
 class PersonUpdateService
 {

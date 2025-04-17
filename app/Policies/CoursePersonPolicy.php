@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\CoursePerson;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\CoursePerson;
 
 class CoursePersonPolicy
 {

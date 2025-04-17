@@ -2,8 +2,8 @@
 
 namespace App\Actions;
 
-use App\Repository\DBRepository;
 use Carbon\Carbon;
+use App\Repository\DBRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class   ValidateResetTokenAction

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAuthRequest;
-use App\Http\Resources\UserResource;
-use App\Services\AuthService;
 use Illuminate\Http\Request;
+use App\Services\AuthService;
+use App\Http\Resources\UserResource;
+use App\Http\Requests\StoreAuthRequest;
 
 class AuthController extends Controller
 {
@@ -27,6 +27,6 @@ class AuthController extends Controller
     {
         $request->user()->tokens()->delete();
 
-        return $this->response(['message' => 'Successfully logged out']);
+        return $this->response(['message' => 'Successfully logged out'], 204);
     }
 }

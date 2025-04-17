@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
-use App\Models\Person;
 use Carbon\Carbon;
+use App\Models\Person;
 
 class PersonRepository
 {
