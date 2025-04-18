@@ -19,7 +19,7 @@ class RegisterMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "Admin registratsiya qilish uchun tasdiqlash ko'di",
+            subject: "EVEREST EDUCATION",
         );
     }
 

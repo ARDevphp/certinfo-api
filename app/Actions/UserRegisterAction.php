@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\Jobs\SendRegisterCodeJob;
+use App\Jobs\SendCodeRegisterJob;
 use Illuminate\Support\Facades\Cache;
 
 class UserRegisterAction
@@ -18,6 +18,6 @@ class UserRegisterAction
                 'password' => $password
             ], now()->addMinutes(4));
 
-        dispatch(new SendRegisterCodeJob($email, $code));
+        dispatch(new SendCodeRegisterJob($email, $code));
     }
 }

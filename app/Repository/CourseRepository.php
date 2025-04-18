@@ -14,7 +14,7 @@ class CourseRepository
             'teacher_id' => $data['teacher_id'],
             'photo_id' => $data['photo_id'] ?? 1,
             'start_course' => $data['start_course'],
-            'course_' => $data['start_course'],
+            'course_duration' => $data['course_duration'],
         ]);
     }
 
