@@ -11,13 +11,15 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('user-register', [UserController::class, 'register']);
-Route::post('users/reset-password', [ResetPasswordController::class, 'reset']);
-Route::post('users/verification-code', [UserController::class, 'verificationCode']);
-Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+Route::middleware('throttle:20,1')->group(function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('user-register', [UserController::class, 'register']);
+    Route::post('users/reset-password', [ResetPasswordController::class, 'reset']);
+    Route::post('users/verification-code', [UserController::class, 'verificationCode']);
+    Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+});
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:30,1'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::put('users/{id}/password', [UserController::class, 'changePassword']);
     Route::post('certificates/download/{id}', [PdfController::class, 'certPdfDownload']);
